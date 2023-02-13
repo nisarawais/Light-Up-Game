@@ -25,6 +25,8 @@ class CustomizeTableState extends FlxSubState
     var alertText:FlxText;
     var rowTitleText:FlxText;
     var columnTitleText:FlxText;
+    var _btnBack:FlxButton;
+    var titleText:FlxText;
 
     override public function create():Void
     {  
@@ -35,43 +37,53 @@ class CustomizeTableState extends FlxSubState
         rows = 4;
         columns = 4;
 
+        titleText = new FlxText(280,50,200, "Set Up The Graph", 15);
+        titleText.screenCenter(X);
+        titleText.color = FlxColor.BLACK;
+        add(titleText);
 
-        rowTitleText = new FlxText(110,80,200, "Row", 15);
+
+        rowTitleText = new FlxText(240,160,200, "Row", 15);
         rowTitleText.color = FlxColor.BLACK;
         add(rowTitleText);
 
-        _btnUpRow = new FlxButton(90,100, "Up",increaseRow);
+        _btnUpRow = new FlxButton(220,190, "Up",increaseRow);
         add(_btnUpRow);
 
-        rowText = new FlxText(120,125,200, ""+rows,20);
+        rowText = new FlxText(250,125,200, ""+rows,20);
         rowText.color = FlxColor.BLACK;
+        rowText.screenCenter(Y);
 		add(rowText);
 
-        _btnDownRow = new FlxButton(90,150, "Down",decreaseRow);
+        _btnDownRow = new FlxButton(220,270, "Down",decreaseRow);
         add(_btnDownRow);
    
 
-        columnTitleText = new FlxText(200,80,200, "Column", 15);
+        columnTitleText = new FlxText(320,160,200, "Column", 15);
         columnTitleText.color = FlxColor.BLACK;
         add(columnTitleText);
 
-        _btnUpColumn = new FlxButton(200,100, "Up",increaseColumn);
+        _btnUpColumn = new FlxButton(320,190, "Up",increaseColumn);
         add(_btnUpColumn);
 
-        columnText = new FlxText(230,125,200, ""+columns,20);
+        columnText = new FlxText(350,125,200, ""+columns,20);
         columnText.color = FlxColor.BLACK;
+        columnText.screenCenter(Y);
 		add(columnText);
 
-        _btnDownColumn = new FlxButton(200,150, "Down",decreaseColumn);
+        _btnDownColumn = new FlxButton(320,270, "Down",decreaseColumn);
         add(_btnDownColumn);
 
         //adding the button for the user to click to start the game
-        _btnPlay = new FlxButton(50,100, "Start",clickPlay);
-        _btnPlay.screenCenter();
+        _btnPlay = new FlxButton(220,400, "Start",clickPlay);
         add(_btnPlay);
         
-        alertText = new FlxText(100,50,200, "You must choose the number between 4-15.", 10);
+        alertText = new FlxText(170,120,400, "You must choose the number between 4-15.", 10);
         alertText.color = FlxColor.RED;
+
+
+        _btnBack = new FlxButton(320, 400, "Back", clickBack);
+        add(_btnBack);
 
     }
 
@@ -143,6 +155,13 @@ class CustomizeTableState extends FlxSubState
             }
 
     }
+
+        //play button is clicked
+        function clickBack():Void
+            {
+                // switched state from current to MenuState
+                FlxG.switchState(new MenuState());
+            }
 
     override public function update(elapsed:Float):Void
     {

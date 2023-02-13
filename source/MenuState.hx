@@ -13,6 +13,7 @@ class MenuState extends FlxState
     var _btnPlay:FlxButton;
     var _btnCustomize:FlxButton;
     var _btnTutorial:FlxButton;
+    var _btnRules:FlxButton;
 
     override public function create():Void
     {
@@ -28,6 +29,10 @@ class MenuState extends FlxState
         _btnTutorial.screenCenter(X);
         add(_btnTutorial);
 
+        _btnRules = new FlxButton(50, 170, "Rules", clickRules);
+        _btnRules.screenCenter(X);
+        add(_btnRules);
+
     }
 
     //play button is clicked
@@ -42,6 +47,13 @@ class MenuState extends FlxState
         // switched state from current to TutorialBoard 
         FlxG.switchState(new TutorialBoard());
     }
+
+    function clickRules():Void 
+        {
+            // switched state from current to RulesState
+            FlxG.switchState(new RulesState());
+        }
+    
 
     override public function update(elapsed:Float):Void
     {

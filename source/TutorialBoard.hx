@@ -1,5 +1,6 @@
 package;
 
+import flixel.ui.FlxButton;
 import flixel.text.FlxText;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -14,7 +15,7 @@ class TutorialBoard extends FlxState{
     var squareWidth: Int;
 	var squareHeight: Int;
 	var tiles: Array<Array<FlxSprite>>;
-
+    var _btnBack:FlxButton;
     var grid: Array<Array<Int>>;
 
     override public function create():Void {
@@ -104,7 +105,20 @@ class TutorialBoard extends FlxState{
         add(tile5_2);
         add(tile6_5);
 
+
+
+        _btnBack = new FlxButton(50, 450, "Back", clickBack);
+        _btnBack.screenCenter(X);
+        add(_btnBack);
+
     }
+
+        //play button is clicked
+        function clickBack():Void
+            {
+                // switched state from current to MenuState
+                FlxG.switchState(new MenuState());
+            }
     override public function update(elapsed:Float) {
         super.update(elapsed);
             
