@@ -35,10 +35,10 @@ class ApplicationMain
 		ManifestResources.init(config);
 		#end
 
-		app.meta["build"] = "2";
+		app.meta["build"] = "9";
 		app.meta["company"] = "HaxeFlixel";
 		app.meta["file"] = "assignment 1";
-		app.meta["name"] = "assignment 1";
+		app.meta["name"] = "Light-Up";
 		app.meta["packageName"] = "com.example.myapp";
 		app.meta["version"] = "0.0.1";
 
@@ -60,7 +60,7 @@ class ApplicationMain
 			minimized: false,
 			parameters: {},
 			resizable: false,
-			title: "assignment 1",
+			title: "Light-Up",
 			width: 640,
 			x: null,
 			y: null,

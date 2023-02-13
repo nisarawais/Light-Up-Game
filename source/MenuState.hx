@@ -20,16 +20,11 @@ class MenuState extends FlxState
 
         camera.bgColor = FlxColor.WHITE;
         //adding the button for the user to click to start the game
-        _btnPlay = new FlxButton(50,50, "Play",clickPlay);
+        _btnPlay = new FlxButton(50,50, "New Game",clickPlay);
         _btnPlay.screenCenter(X);
         add(_btnPlay);
 
-        //adding the button for the user to click to set up the row and column for the graph
-        _btnCustomize = new FlxButton(50,110, "Customize The Graph",customizeTable);
-        _btnCustomize.screenCenter(X);
-        add(_btnCustomize);
-
-        _btnTutorial = new FlxButton(50, 170, "Tutorial Board", clickTutorial);
+        _btnTutorial = new FlxButton(50, 110, "Tutorial Board", clickTutorial);
         _btnTutorial.screenCenter(X);
         add(_btnTutorial);
 
@@ -39,18 +34,12 @@ class MenuState extends FlxState
     function clickPlay():Void
     {
         // switched state from current to PlayState
-        FlxG.switchState(new PlayState());
-    }
-    
-    function customizeTable():Void 
-    {
-        // switched state from current to CustomizeTableState  //ERRORS
         FlxG.switchState(new CustomizeTableState());
     }
-
+    
     function clickTutorial():Void 
     {
-        // switched state from current to CustomizeTableState  //ERRORS
+        // switched state from current to TutorialBoard 
         FlxG.switchState(new TutorialBoard());
     }
 
