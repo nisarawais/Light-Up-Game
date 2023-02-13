@@ -12,9 +12,12 @@ class MenuState extends FlxState
     //initializing the variables
     var _btnPlay:FlxButton;
     var _btnCustomize:FlxButton;
+    var _btnTutorial:FlxButton;
 
     override public function create():Void
     {
+        super.create();
+
         camera.bgColor = FlxColor.WHITE;
         //adding the button for the user to click to start the game
         _btnPlay = new FlxButton(50,50, "Play",clickPlay);
@@ -25,7 +28,11 @@ class MenuState extends FlxState
         _btnCustomize = new FlxButton(50,110, "Customize The Graph",customizeTable);
         _btnCustomize.screenCenter(X);
         add(_btnCustomize);
-        super.create();
+
+        _btnTutorial = new FlxButton(50, 170, "Tutorial Board", clickTutorial);
+        _btnTutorial.screenCenter(X);
+        add(_btnTutorial);
+
     }
 
     //play button is clicked
@@ -39,6 +46,12 @@ class MenuState extends FlxState
     {
         // switched state from current to CustomizeTableState  //ERRORS
         FlxG.switchState(new CustomizeTableState());
+    }
+
+    function clickTutorial():Void 
+    {
+        // switched state from current to CustomizeTableState  //ERRORS
+        FlxG.switchState(new TutorialBoard());
     }
 
     override public function update(elapsed:Float):Void
