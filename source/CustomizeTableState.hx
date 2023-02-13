@@ -3,7 +3,6 @@ package;
 import flixel.FlxSubState;
 import flixel.system.scaleModes.FixedScaleAdjustSizeScaleMode;
 import flixel.util.FlxColor;
-import js.html.svg.EllipseElement;
 import openfl.text.TextField;
 import flixel.text.FlxText;
 import flixel.FlxState;
@@ -80,7 +79,7 @@ class CustomizeTableState extends FlxSubState
     function clickPlay():Void
     {
         // switched state from current to PlayState
-        FlxG.switchState(new PlayState());
+        FlxG.switchState(new PlayState(columns, rows));
     }
 
     // increase the row

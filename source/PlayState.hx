@@ -7,6 +7,7 @@ import flixel.util.FlxColor;
 
 class PlayState extends FlxState
 {
+	
 	var boardWidth: Int;
 	var boardHeight: Int;
 	var columns: Int;
@@ -17,13 +18,18 @@ class PlayState extends FlxState
 
 	var grid: Array<Array<Int>>;
 
+	override public function new(columnsPassed: Int, rowsPassed: Int) {
+		super();
+		columns = columnsPassed;
+		rows = rowsPassed;
+	}
 	override public function create()
 	{
 		super.create();
 
 		// ======== SET UP VARS ==========
-		columns = 5;		// TODO: change via menu
-		rows = 5;			// TODO: change via menu
+		// columns = 5;		// TODO: change via menu
+		// rows = 5;			// TODO: change via menu
 		// --- Board ---
 		boardWidth = FlxG.width - 100;
 		boardHeight = FlxG.height - 100;
