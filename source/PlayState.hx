@@ -52,7 +52,6 @@ class PlayState extends FlxState
 		background.x = FlxG.width - background.width;
 		background.y = FlxG.height - background.height;
 		add(background);
-
 		generateBoard();
 
         _btnSolve = new FlxButton(20, 20, "Solve Puzzle", solvePuzzle);
@@ -169,7 +168,7 @@ class PlayState extends FlxState
 			var randomizeFloorTiles;
 			lightBulbs = new Array<Array<FlxSprite>>();
 			crosses = new  Array<Array<FlxSprite>>();
-
+			var candleSound = FlxG.sound.load(AssetPaths.match_light__wav);
 			for (x in 0...columns) {
 				tiles[x] = new Array<FlxSprite>();
 				lightBulbs[x] = new Array<FlxSprite>();
@@ -246,6 +245,7 @@ class PlayState extends FlxState
 								if(!lightVisibleFromCell(x, y)) {
 									lightUp(0, sprite);
 								}
+								candleSound.play();
 								lightBulbs[x][y].kill();
 								lightBeam(false, tiles[x][y], x, y);
 							} else {
@@ -262,6 +262,7 @@ class PlayState extends FlxState
                             if(!lightVisibleFromCell(x, y)) {
                                 lightUp(0, sprite);
                             }
+							candleSound.play();
                             lightBulbs[x][y].kill();
                             lightBeam(false, tiles[x][y], x, y);
                         }

@@ -18,7 +18,10 @@ class MenuState extends FlxState
     override public function create():Void
     {
         super.create();
-
+        if (FlxG.sound.music == null) // don't restart the music if it's already playing
+            {
+                FlxG.sound.playMusic(AssetPaths.suspense_dark_ambient_8413__mp3, 1, true);
+            }
         camera.bgColor = FlxColor.WHITE;
         //adding the button for the user to click to start the game
         _btnPlay = new FlxButton(50,180, "New Game",clickPlay);
