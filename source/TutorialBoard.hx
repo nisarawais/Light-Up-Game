@@ -27,8 +27,8 @@ class TutorialBoard extends FlxState{
         super.create();
                 
         // ======== SET UP VARS ==========
-        columns = 5;		// TODO: change via menu
-        rows = 5;			// TODO: change via menu
+        columns = 3;		// TODO: change via menu
+        rows = 3;			// TODO: change via menu
         // --- Board ---
         boardWidth = FlxG.width - 100;
         boardHeight = FlxG.height - 100;
