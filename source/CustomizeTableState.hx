@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxSprite;
 import flixel.FlxSubState;
 import flixel.system.scaleModes.FixedScaleAdjustSizeScaleMode;
 import flixel.util.FlxColor;
@@ -27,11 +28,21 @@ class CustomizeTableState extends FlxSubState
     var columnTitleText:FlxText;
     var _btnBack:FlxButton;
     var titleText:FlxText;
+    var background:FlxSprite;
 
     override public function create():Void
     {  
 
         super.create();
+
+        // ***** If the background is on here, the text is not visible *****
+    /*  background = new FlxSprite();
+		background.loadGraphic("assets/images/menu_background.png");
+		background.scale.set(FlxG.width / background.width, FlxG.height / background.height);
+		background.updateHitbox();
+		background.x = FlxG.width - background.width;
+		background.y = FlxG.height - background.height;
+		add(background); */
 
         // setting up the inital rows and columns
         rows = 4;

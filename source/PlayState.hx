@@ -95,7 +95,7 @@ class PlayState extends FlxState
             tile.color = FlxColor.BLACK;
 		}
 		else if (gridVal == 0) {
-            tile.color = FlxColor.WHITE;
+            tile.color = 0xFF696969;
 		}
 		else if (gridVal == 1) {
             tile.color = 0x70fff584;
@@ -238,7 +238,13 @@ class PlayState extends FlxState
 								tiles[x][y].updateHitbox();
                         		tiles[x][y].setPosition(tiles[x][y].x - squareWidth/2, tiles[x][y].y - squareHeight/2);
 							}
+						lightUp(0, tiles[x][y]);
+
 						lightBulbs[x][y].loadGraphic(AssetPaths.lightbulb__png, squareWidth, squareHeight);
+						lightBulbs[x][y].scale.set((squareHeight - (squareHeight*0.1))/lightBulbs[x][y].height, (squareHeight - (squareHeight*0.1))/lightBulbs[x][y].height);
+						lightBulbs[x][y].updateHitbox();
+                        lightBulbs[x][y].setPosition(lightBulbs[x][y].x - squareWidth/2, lightBulbs[x][y].y - squareHeight/2);
+
 						crosses[x][y].loadGraphic(AssetPaths.x__png, squareWidth, squareHeight);
 						FlxMouseEvent.add(tiles[x][y], function(sprite:FlxSprite) {
 							if(grid[x][y] == 1) {
