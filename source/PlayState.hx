@@ -176,8 +176,9 @@ class PlayState extends FlxState
 		}
 		for(x in 0...numOfLights.length){
             for (y in 0...numOfLights[0].length){
-                if(numOfLights[x][y] > -1 && grid[x][y] == -1){
-                    var text = new FlxText(tiles[x][y].x, tiles[x][y].y, 0, '${numOfLights[x][y]}', 24);
+                if(numOfLights[x][y] > -1 && grid[x][y] == -1 && FlxG.random.bool(60)){
+                    var text = new FlxText(tiles[x][y].x, tiles[x][y].y, 0, '${numOfLights[x][y]}',
+					 Math.floor(tiles[x][y].height - tiles[x][y].height*0.25));
                     add(text);
                 }
             }
