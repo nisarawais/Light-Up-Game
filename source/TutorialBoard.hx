@@ -1,6 +1,7 @@
 package;
 
 import flixel.ui.FlxButton;
+import flixel.ui.FlxButton;
 import flixel.text.FlxText;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -20,13 +21,14 @@ class TutorialBoard extends FlxState{
     var grid: Array<Array<Int>>;
 
     var lightBulbs: Array<Array<FlxSprite>>;
+    var blackGrid:Array<Array<Int>>;
 
     override public function create():Void {
         super.create();
                 
         // ======== SET UP VARS ==========
-        columns = 7;		// TODO: change via menu
-        rows = 7;			// TODO: change via menu
+        columns = 3;		// TODO: change via menu
+        rows = 3;			// TODO: change via menu
         // --- Board ---
         boardWidth = FlxG.width - 100;
         boardHeight = FlxG.height - 100;
@@ -52,47 +54,70 @@ class TutorialBoard extends FlxState{
 		board.setPosition(FlxG.width/2 - boardWidth/2, FlxG.height/2 - boardHeight/2);
 		add(board);
 
-        grid = 
-        [   [0, -1, -1, 0, 0, 0, 0],
-            [0, 0, 0, 0, -1, 0, -1],
-            [0, -1, 0, 0, 0, 0, -1],
-            [0, 0, 0, 0, 0, 0, 0],
-            [-1, 0, 0, 0, 0, -1, 0],
-            [-1, 0, -1, 0, 0, 0, 0],
-            [0, 0, 0, 0, -1, -1, 0]
+        // grid = 
+        // [   [ 0, -1, -1, 0,  0,  0,  1],
+        //     [ 0,  1,  0, 0, -1,  1, -1],
+        //     [ 1, -1,  0, 1,  0,  0, -1],
+        //     [ 0,  1,  0, 0,  0,  0,  0],
+        //     [-1,  0,  1, 0,  0, -1,  0],
+        //     [-1,  0, -1, 0,  0,  0,  1],
+        //     [ 0,  0,  1, 0, -1, -1,  0]
+        // ];
+        grid = [
+            [ 0, 0,-1],
+            [-1, 0, 0],
+            [ 0, 0,-1]
         ];
 
 
 		// ====== ORIGINAL SQUARES =========
 		tiles = new Array<Array<FlxSprite>>();
         lightBulbs = new Array<Array<FlxSprite>>();
+        blackGrid = new Array<Array<Int>>();
+
 		var squareX = board.x + 1;
 		var squareY = board.y + 1;
 
 		for (x in 0...columns) {
 			tiles[x] = new Array<FlxSprite>();
             lightBulbs[x] = new Array<FlxSprite>();
+            blackGrid[x] = new Array<Int>();
 			for (y in 0...rows) {
 				tiles[x][y] = new FlxSprite();
                 lightBulbs[x][y] = new FlxSprite();
 				// make black if negative (-1)
 				if (grid[x][y] < 0) {
 					tiles[x][y].makeGraphic(squareWidth, squareHeight, FlxColor.BLACK);
+                    //determine how many lights must be around square. checks for neighbouring black squares and edge of board,
+                    //but it's not perfect. It does not check if a solution is possible
+                    var blackMax = 4;
+                    if (x == 0 || grid[x-1][y] == -1) blackMax--;
+                    if (y == 0 || grid[x][y-1] == -1) blackMax--;
+                    if( x == columns - 1 || grid[x+1][y] == -1) blackMax--;
+                    if( y == rows - 1 || grid[x][y+1] == -1) blackMax--;
+                    blackGrid[x][y] = Math.floor(Math.random() * (blackMax + 1.5))-1;
 				}
+                else if (grid[x][y] == 1) {
+                    tiles[x][y].makeGraphic(squareWidth, squareHeight, FlxColor.YELLOW);
+                    blackGrid[x][y] = -1;
+                }
 				else {
 					tiles[x][y].makeGraphic(squareWidth, squareHeight, FlxColor.WHITE);
                     lightBulbs[x][y].loadGraphic(AssetPaths.lightbulb__png, squareWidth, squareHeight);
                     FlxMouseEvent.add(tiles[x][y], function(sprite:FlxSprite) {
-                        if(sprite.color == 0x70fff584) {
+                        if(grid[x][y] == 1) {
+                            grid[x][y] = 0;
                             lightUp(0, sprite);
                             lightBulbs[x][y].kill();
                             lightBeam(false, tiles[x][y], x, y);
                         } else {
+                            grid[x][y] = 1;
                             lightUp(1, sprite);
                             lightBulbs[x][y].revive();
                             lightBeam(true, tiles[x][y], x, y);
                         }
                     });
+                    blackGrid[x][y] = -1;
 				}
 				tiles[x][y].setPosition(squareX, squareY);
                 lightBulbs[x][y].setPosition(squareX, squareY);
@@ -108,23 +133,23 @@ class TutorialBoard extends FlxState{
 			squareX += squareWidth + 2;
 		}
 
-        var tile1_4 = new FlxText(tiles[1][4].x + (tiles[1][4].width/2), tiles[1][4].y , 0, "1", 24);
-        var tile1_6 = new FlxText(tiles[1][6].x + (tiles[1][6].width/2), tiles[1][6].y , 0, "2", 24);
-        var tile2_1 = new FlxText(tiles[2][1].x + (tiles[2][1].width/2), tiles[2][1].y , 0, "3", 24);
-        var tile2_6 = new FlxText(tiles[2][6].x + (tiles[2][6].width/2), tiles[2][6].y , 0, "0", 24);
-        var tile4_5 = new FlxText(tiles[4][5].x + (tiles[4][5].width/2), tiles[4][5].y , 0, "0", 24);
-        var tile5_0 = new FlxText(tiles[5][0].x + (tiles[5][0].width/2), tiles[5][0].y , 0, "0", 24);
-        var tile5_2 = new FlxText(tiles[5][2].x + (tiles[5][2].width/2), tiles[5][2].y , 0, "2", 24);
-        var tile6_5 = new FlxText(tiles[6][5].x + (tiles[6][5].width/2), tiles[6][5].y , 0, "0", 24);
+        blackGrid = [
+            [-1, -1, 2],
+            [ 1, -1,-1],
+            [-1, -1, 1]
+        ];
 
-        add(tile1_4);
-        add(tile1_6);
-        add(tile2_1);
-        add(tile2_6);
-        add(tile4_5);
-        add(tile5_0);
-        add(tile5_2);
-        add(tile6_5);
+        for(x in 0...blackGrid.length){
+            for (y in 0...blackGrid[0].length){
+                if(blackGrid[x][y] != -1){
+                    var text = new FlxText(tiles[x][y].x, tiles[x][y].y, 0, '${blackGrid[x][y]}', 24);
+                    add(text);
+                }
+            }
+        }
+
+        var winButton = new FlxButton(FlxG.width/2, FlxG.height - 50, "Check Win", checkWin);
+        add(winButton);
 
 
 
@@ -140,11 +165,127 @@ class TutorialBoard extends FlxState{
                 // switched state from current to MenuState
                 FlxG.switchState(new MenuState());
             }
+
     override public function update(elapsed:Float) {
         super.update(elapsed);
 
         
     }
+
+    public function checkWin(){
+        var win = true;
+        for(x in 0...columns){
+            for(y in 0...rows){
+                //if the cell has a light in it
+                if(grid[x][y] == 1){
+                    trace("checking light at:");
+                    if(lightVisibleFromCell(x, y)) win = false;
+                }
+                //if the cell is empty
+                else if (grid[x][y] == 0){
+                    trace("checking empty cell at:");
+                    if(!lightVisibleFromCell(x,y)) win = false;
+                } else if (grid[x][y] == -1){
+                    trace("Checking black square at:");
+                    if(!validateBlackSquare(x,y)) win = false;
+                }
+            }
+        }
+
+        if(win){
+            var text = new FlxText(FlxG.width/2, 50, 0, "You Win!");
+            add (text);
+        } else {
+            var text = new FlxText(FlxG.width/2, 50, 0, "You don't win yet!");
+            add (text);
+        }
+        
+    }
+
+    /**
+    * Check if a light is visible from the given cell
+    * @param x the x-coordinate of the cell to check
+    * @param y the y-coordinate of the cell to check
+    * @return true if a light is visible, false otherwise
+    **/
+    function lightVisibleFromCell(x:Int, y:Int){
+        trace('X: $x');
+        trace('Y: $y');
+        //check left
+        if(x > 0){ 
+            var j = x;
+            while(j-- > 0){
+                trace('Looking left of $x, $y at $j, $y');
+                if(grid[j][y] == 1){
+                    trace("Light Found");
+                    return true;
+                    }
+                else if (grid[j][y] == -1) break;
+            }
+        }
+        //check right
+        if(x < columns){ 
+            for(j in x+1...columns){
+                trace('Looking right of $x, $y at $j, $y');
+                if(grid[j][y] == 1){
+                    trace("Light Found");
+                    return true;
+                    }
+                else if (grid[j][y] == -1) break;
+            }
+        }
+        //check up
+        if(y > 0){ 
+            var k = y;
+            while(k-- > 0){
+                trace('Looking above $x, $y at $x, $k');
+                if(grid[x][k] == 1){
+                    trace("Light Found");
+                    return true;
+                    }
+                else if (grid[x][k] == -1) break;
+            }
+        }
+        //check down
+        if(y < rows){ 
+            for(k in y+1...rows){
+                trace('Looking below $x, $y at $x, $k');
+                if(grid[x][k] == 1){
+                    trace("Light Found");
+                    return true;
+                    }
+                else if (grid[x][k] == -1) break;
+            }
+        }
+        return false;
+    }
+
+    function validateBlackSquare(x:Int, y:Int){
+        trace('X: $x');
+        trace('Y: $y');
+        var numLights = 0;
+        if(x > 0 && grid[x-1][y] == 1) {
+            numLights++;
+            trace('$numLights lights');
+        };
+        if(x < columns -1 && grid[x + 1][y] == 1) {
+            numLights++;
+            trace('$numLights lights');
+        };
+        if(y > 0 && grid[x][y-1] == 1) {
+            numLights++;
+            trace('$numLights lights');
+        };
+        if(y < rows - 1 && grid[x][y+1] == 1){
+            numLights++;
+            trace('$numLights lights');
+        };
+
+        if(blackGrid[x][y] > -1 && numLights == blackGrid[x][y]) return true;
+        return false;
+    }
+
+
     /**
 	 * Change the light of each square
 	 * @param gridVal -1 is black, 0 is white, 1 is yellow, and above is red
