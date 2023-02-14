@@ -27,8 +27,8 @@ class TutorialBoard extends FlxState{
         super.create();
                 
         // ======== SET UP VARS ==========
-        columns = 3;		// TODO: change via menu
-        rows = 3;			// TODO: change via menu
+        columns = 5;		// TODO: change via menu
+        rows = 5;			// TODO: change via menu
         // --- Board ---
         boardWidth = FlxG.width - 100;
         boardHeight = FlxG.height - 100;
@@ -104,10 +104,13 @@ class TutorialBoard extends FlxState{
 				else {
 					tiles[x][y].makeGraphic(squareWidth, squareHeight, FlxColor.WHITE);
                     lightBulbs[x][y].loadGraphic(AssetPaths.lightbulb__png, squareWidth, squareHeight);
+                    //Mouse interaction with tiles (adding/removing lamps)
                     FlxMouseEvent.add(tiles[x][y], function(sprite:FlxSprite) {
                         if(grid[x][y] == 1) {
                             grid[x][y] = 0;
-                            lightUp(0, sprite);
+                            if(!lightVisibleFromCell(x, y)) {
+                                lightUp(0, sprite);
+                            }
                             lightBulbs[x][y].kill();
                             lightBeam(false, tiles[x][y], x, y);
                         } else {
@@ -286,7 +289,6 @@ class TutorialBoard extends FlxState{
         return false;
     }
 
-
     /**
 	 * Change the light of each square
 	 * @param gridVal -1 is black, 0 is white, 1 is yellow, and above is red
@@ -341,7 +343,9 @@ class TutorialBoard extends FlxState{
         } else {
             if(y - 1 >= 0) {
                 if(grid[x][y - 1] == 0) {
-                    lightUp(0, tiles[x][y - 1]);
+                    if(!lightVisibleFromCell(x, y - 1)){
+                        lightUp(0, tiles[x][y - 1]);
+                    }
                     lightBeamUp(gridVal, tiles[x][y - 1], x, y - 1);
                 }
             }
@@ -359,7 +363,9 @@ class TutorialBoard extends FlxState{
         } else {
             if(y + 1 <= columns) {
                 if(grid[x][y + 1] == 0) {
-                    lightUp(0, tiles[x][y + 1]);
+                    if(!lightVisibleFromCell(x, y + 1)) {
+                        lightUp(0, tiles[x][y + 1]);
+                    } 
                     lightBeamDown(gridVal, tiles[x][y + 1], x, y + 1);
                 }
             }
@@ -377,7 +383,9 @@ class TutorialBoard extends FlxState{
         } else {
             if(x - 1 >= 0) {
                 if(grid[x - 1][y] == 0) {
-                    lightUp(0, tiles[x - 1][y]);
+                    if(!lightVisibleFromCell(x - 1, y)) {
+                        lightUp(0, tiles[x - 1][y]);
+                    }
                     lightBeamLeft(gridVal, tiles[x - 1][y], x - 1, y);
                 }
             }
@@ -395,7 +403,9 @@ class TutorialBoard extends FlxState{
         } else {
             if(x + 1 <= rows - 1) {
                 if(grid[x + 1][y] == 0) {
-                    lightUp(0, tiles[x + 1][y]);
+                    if(!lightVisibleFromCell(x + 1, y)) {
+                        lightUp(0, tiles[x + 1][y]);
+                    }
                     lightBeamRight(gridVal, tiles[x + 1][y], x + 1, y);
                 }
             }
