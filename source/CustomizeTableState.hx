@@ -78,7 +78,7 @@ class CustomizeTableState extends FlxSubState
         _btnPlay = new FlxButton(320,400, "Start",clickPlay);
         add(_btnPlay);
         
-        alertText = new FlxText(170,120,400, "You must choose the number between 4-15.", 10);
+        alertText = new FlxText(170,120,400, "You must choose the number between 4-10.", 10);
         alertText.color = FlxColor.RED;
 
 
@@ -97,7 +97,7 @@ class CustomizeTableState extends FlxSubState
     // increase the row
 
     function increaseRow():Void{ 
-        if(rows <15)
+        if(rows <10)
             {
                 rows ++;
                 rowText.text = ""+ rows;
@@ -127,7 +127,7 @@ class CustomizeTableState extends FlxSubState
 
     // increase the column
     function increaseColumn():Void{
-        if(columns < 15)
+        if(columns < 10)
             {
             columns ++;
             columnText.text = ""+ columns;
