@@ -174,31 +174,31 @@ class PlayState extends FlxState
 					if (grid[x][y] < 0) {
 						if (grid[x][y] < 0) {
 							if(randomizeWallTiles <=1){
-								tiles[x][y].loadGraphic(AssetPaths.brown_tile__png, squareWidth, squareHeight);
+								tiles[x][y].loadGraphic(AssetPaths.brown_tile__png);
 							}
-							if(randomizeFloorTiles >1 && randomizeFloorTiles <=2){
-								tiles[x][y].loadGraphic(AssetPaths.light_brown_tile__png, squareWidth, squareHeight);
+							if(randomizeWallTiles >1 && randomizeWallTiles <=2){
+								tiles[x][y].loadGraphic(AssetPaths.light_brown_tile__png);
 							}
-							if(randomizeFloorTiles >2 && randomizeFloorTiles <=3){
-								tiles[x][y].loadGraphic(AssetPaths.pink_tile__png, squareWidth, squareHeight);
+							if(randomizeWallTiles >2 && randomizeWallTiles <=3){
+								tiles[x][y].loadGraphic(AssetPaths.pink_tile__png);
 							}
-							if(randomizeFloorTiles >3 && randomizeFloorTiles <=4){
-								tiles[x][y].loadGraphic(AssetPaths.orange_tile__png, squareWidth, squareHeight);
+							if(randomizeWallTiles >3 && randomizeWallTiles <=4){
+								tiles[x][y].loadGraphic(AssetPaths.orange_tile__png);
 							}
-							if(randomizeFloorTiles > 4){
-								tiles[x][y].loadGraphic(AssetPaths.dark_red_tile__png, squareWidth, squareHeight);
+							if(randomizeWallTiles > 4){
+								tiles[x][y].loadGraphic(AssetPaths.dark_red_tile__png);
 							}
 						}
 					}
 						else {
 							if(randomizeFloorTiles <=1){
-								tiles[x][y].loadGraphic(AssetPaths.flooring_tile_1__png, squareWidth, squareHeight);
+								tiles[x][y].loadGraphic(AssetPaths.flooring_tile_1__png);
 							}
 							if(randomizeFloorTiles >1 && randomizeFloorTiles <=2){
-								tiles[x][y].loadGraphic(AssetPaths.flooring_tile_2__png, squareWidth, squareHeight);
+								tiles[x][y].loadGraphic(AssetPaths.flooring_tile_2__png);
 							}
 							if(randomizeFloorTiles > 2){
-								tiles[x][y].loadGraphic(AssetPaths.flooring_tile_3__png, squareWidth, squareHeight);
+								tiles[x][y].loadGraphic(AssetPaths.flooring_tile_3__png);
 							}
 						lightBulbs[x][y].loadGraphic(AssetPaths.lightbulb__png, squareWidth, squareHeight);
 						crosses[x][y].loadGraphic(AssetPaths.x__png, squareWidth, squareHeight);
