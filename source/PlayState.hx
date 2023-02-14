@@ -20,7 +20,7 @@ class PlayState extends FlxState
 	var rows: Int;
 	var squareWidth: Int;
 	var squareHeight: Int;
-	private var background:FlxSprite;
+	var background:FlxSprite;
 	var tiles: Array<Array<FlxSprite>>;
 	var grid: Array<Array<Int>>;
 	var gridSolution: Array<Array<Int>>;
@@ -169,6 +169,7 @@ class PlayState extends FlxState
 			lightBulbs = new Array<Array<FlxSprite>>();
 			crosses = new  Array<Array<FlxSprite>>();
 			var candleSound = FlxG.sound.load(AssetPaths.match_light__wav);
+			candleSound.volume = 0.6;
 			for (x in 0...columns) {
 				tiles[x] = new Array<FlxSprite>();
 				lightBulbs[x] = new Array<FlxSprite>();
@@ -245,7 +246,6 @@ class PlayState extends FlxState
 								if(!lightVisibleFromCell(x, y)) {
 									lightUp(0, sprite);
 								}
-								candleSound.play();
 								lightBulbs[x][y].kill();
 								lightBeam(false, tiles[x][y], x, y);
 							} else {
@@ -253,6 +253,7 @@ class PlayState extends FlxState
 								lightUp(1, sprite);
 								lightBulbs[x][y].revive();
 								crosses[x][y].kill();
+								candleSound.play();
 								lightBeam(true, tiles[x][y], x, y);
 							}
 						}, null, null, null, true);
@@ -262,7 +263,6 @@ class PlayState extends FlxState
                             if(!lightVisibleFromCell(x, y)) {
                                 lightUp(0, sprite);
                             }
-							candleSound.play();
                             lightBulbs[x][y].kill();
                             lightBeam(false, tiles[x][y], x, y);
                         }
