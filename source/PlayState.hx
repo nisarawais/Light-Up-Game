@@ -28,11 +28,11 @@ class PlayState extends FlxState
 
 	var numOfLights: Array<Array<Int>>;
 	var lightBulbs: Array<Array<FlxSprite>>;
-<<<<<<< Updated upstream
 	var crosses: Array<Array<FlxSprite>>;
-=======
 	var score = 0;
->>>>>>> Stashed changes
+
+	var winText:FlxText;
+	var noWinText:FlxText;
 
 	override public function new(columnsPassed: Int, rowsPassed: Int) {
 		super();
@@ -55,8 +55,19 @@ class PlayState extends FlxState
         _btnBack = new FlxButton(50, 450, "Back", clickBack);
         _btnBack.screenCenter(X);
         add(_btnBack);
-
 		
+		// setting text for win message
+		// win Text
+		winText = new FlxText(FlxG.width/2, FlxG.height - 450 , 0, "You Win!");
+		winText.color = 0x7002FD02;
+		add (winText);
+		winText.kill();
+
+		// Lose Text
+		noWinText = new FlxText(FlxG.width/2, FlxG.height - 450, 0, "You don't win yet!");
+		noWinText.color = 0x70FF0202;
+		add (noWinText);
+		noWinText.kill();
 	}
 
 	override public function update(elapsed:Float)
@@ -88,7 +99,7 @@ class PlayState extends FlxState
 	}
 
 	/**
-	*	Generate a new play board
+	*	Generate a new play board, the grid for the solution, and create the array of sprites
 	*/
 	function generateBoard() {
 		// --- Board ---
@@ -133,13 +144,11 @@ class PlayState extends FlxState
 		if(!isSolvable()){
 			generateBoard();
 		} else{
-
 				// ======= THE BOARD AND BORDERS ==========
 			var board = new FlxSprite();
 			board.makeGraphic(boardWidth, boardHeight, FlxColor.GRAY);
 			board.setPosition(FlxG.width/2 - boardWidth/2, FlxG.height/2 - boardHeight/2);
 			add(board);
-
 
 			// ====== ORIGINAL SQUARES =========
 			tiles = new Array<Array<FlxSprite>>();
@@ -204,8 +213,6 @@ class PlayState extends FlxState
 					add(crosses[x][y]);
 					lightBulbs[x][y].kill();
 					crosses[x][y].kill();
-
-
 					// next square up
 					squareY += 2 + squareHeight;
 				}
@@ -214,10 +221,13 @@ class PlayState extends FlxState
 				// next column over
 				squareX += squareWidth + 2;
 			}
-			
 			addNumbersToTiles();
 		}
 	}
+
+	/**
+	*	Adds numbers to the tiles based on the number of lamps adjacent to the black block
+	**/
 	function addNumbersToTiles() {
 		var count:Int = 0;
 		for (x in 0...columns) {
@@ -238,7 +248,6 @@ class PlayState extends FlxState
 				}
 				numOfLights[x][y] = count;
 				count = 0;
-
 			}
 		}
 		for(x in 0...numOfLights.length){
@@ -252,7 +261,6 @@ class PlayState extends FlxState
         }
 	}
 
-	
 	/**
 	 * Check if generated puzzle can be solved ans set the solution in the grid variable
 	 */
@@ -294,9 +302,9 @@ class PlayState extends FlxState
 				}
 			}
 		}
-			
 		return true;
 	}
+
 	/**
 	 * Display the solved puzzle on the board
 	 */
@@ -311,18 +319,22 @@ class PlayState extends FlxState
 			}
 		}
 	}
+
+	/**
+	*	Check if the win conditions are met and displays the win/no win message
+	*/
 	public function checkWin(){
         var win = true;
         for(x in 0...columns){
             for(y in 0...rows){
                 //if the cell has a light in it
                 if(grid[x][y] == 1){
-                    trace("checking light at:");
+                    // trace("checking light at:");
                     if(lightVisibleFromCell(x, y)) win = false;
                 }
                 //if the cell is empty
                 else if (grid[x][y] == 0){
-                    trace("checking empty cell at:");
+                    // trace("checking empty cell at:");
                     if(!lightVisibleFromCell(x,y)) win = false;
                 // } else if (grid[x][y] == -1){
                 //     trace("Checking black square at:");
@@ -331,27 +343,19 @@ class PlayState extends FlxState
             }
         }
 
-		// setting text for win message
-		// win Text
-		var text = new FlxText(FlxG.width/2, FlxG.height - 450 , 0, "You Win!");
-		text.color = 0x7002FD02;
-
-		// Lose Text
-		var text2 = new FlxText(FlxG.width/2, FlxG.height - 450, 0, "You don't win yet!");
-		text2.color = 0x70FF0202;
-
 		// win if statement
         if(win){
-            remove(text2);
-            add (text);
+			noWinText.kill();
+            winText.revive();
         } else {
-            remove(text);
-            add (text2);
+			winText.kill();
+			noWinText.revive();
         }
-        
     }
 
-	//play button is clicked
+	/**
+	*	Switches the state back to the menu state when the play button is clicked
+	*/
 	function clickBack():Void
 	{
 		// switched state from current to MenuState
@@ -365,15 +369,15 @@ class PlayState extends FlxState
     * @return true if a light is visible, false otherwise
     **/
     function lightVisibleFromCell(x:Int, y:Int){
-        trace('X: $x');
-        trace('Y: $y');
+        // trace('X: $x');
+        // trace('Y: $y');
         //check left
         if(x > 0){ 
             var j = x;
             while(j-- > 0){
-                trace('Looking left of $x, $y at $j, $y');
+                // trace('Looking left of $x, $y at $j, $y');
                 if(grid[j][y] == 1){
-                    trace("Light Found");
+                    // trace("Light Found");
                     return true;
                     }
                 else if (grid[j][y] == -1) break;
@@ -382,9 +386,9 @@ class PlayState extends FlxState
         //check right
         if(x < columns){ 
             for(j in x+1...columns){
-                trace('Looking right of $x, $y at $j, $y');
+                // trace('Looking right of $x, $y at $j, $y');
                 if(grid[j][y] == 1){
-                    trace("Light Found");
+                    // trace("Light Found");
                     return true;
                     }
                 else if (grid[j][y] == -1) break;
@@ -394,9 +398,9 @@ class PlayState extends FlxState
         if(y > 0){ 
             var k = y;
             while(k-- > 0){
-                trace('Looking above $x, $y at $x, $k');
+                // trace('Looking above $x, $y at $x, $k');
                 if(grid[x][k] == 1){
-                    trace("Light Found");
+                    // trace("Light Found");
                     return true;
                     }
                 else if (grid[x][k] == -1) break;
@@ -405,9 +409,9 @@ class PlayState extends FlxState
         //check down
         if(y < rows){ 
             for(k in y+1...rows){
-                trace('Looking below $x, $y at $x, $k');
+                // trace('Looking below $x, $y at $x, $k');
                 if(grid[x][k] == 1){
-                    trace("Light Found");
+                    // trace("Light Found");
                     return true;
                     }
                 else if (grid[x][k] == -1) break;
