@@ -20,6 +20,7 @@ class PlayState extends FlxState
 	var rows: Int;
 	var squareWidth: Int;
 	var squareHeight: Int;
+	private var background:FlxSprite;
 	var tiles: Array<Array<FlxSprite>>;
 	var grid: Array<Array<Int>>;
 	var gridSolution: Array<Array<Int>>;
@@ -43,6 +44,15 @@ class PlayState extends FlxState
 	override public function create()
 	{
 		super.create();
+
+		background = new FlxSprite();
+		background.loadGraphic("assets/images/background.png");
+		background.scale.set(FlxG.width / background.width, FlxG.height / background.height);
+		background.updateHitbox();
+		background.x = FlxG.width - background.width;
+		background.y = FlxG.height - background.height;
+		add(background);
+
 		generateBoard();
 
         _btnSolve = new FlxButton(20, 20, "Solve Puzzle", solvePuzzle);
@@ -161,8 +171,6 @@ class PlayState extends FlxState
 			crosses = new  Array<Array<FlxSprite>>();
 
 			for (x in 0...columns) {
-				randomizeWallTiles = (Math.random() * 5);
-				randomizeFloorTiles = (Math.random() * 3);
 				tiles[x] = new Array<FlxSprite>();
 				lightBulbs[x] = new Array<FlxSprite>();
 				crosses[x] = new Array<FlxSprite>();
@@ -170,35 +178,65 @@ class PlayState extends FlxState
 					tiles[x][y] = new FlxSprite();
 					lightBulbs[x][y] = new FlxSprite();
 					crosses[x][y] = new FlxSprite();
+
+					randomizeWallTiles = FlxG.random.int(1, 5);
+					randomizeFloorTiles = FlxG.random.int(1, 3);
 					// make black if negative (-1)
 					if (grid[x][y] < 0) {
 						if (grid[x][y] < 0) {
-							if(randomizeWallTiles <=1){
-								tiles[x][y].loadGraphic(AssetPaths.brown_tile__png);
+							if(randomizeWallTiles == 1){
+								tiles[x][y].loadGraphic("assets/images/brown_tile.png", squareWidth, squareHeight);
+								tiles[x][y].scale.set(squareWidth/tiles[x][y].width, squareHeight/tiles[x][y].height);
+								tiles[x][y].updateHitbox();
+                        		tiles[x][y].setPosition(tiles[x][y].x - squareWidth/2, tiles[x][y].y - squareHeight/2);
 							}
-							if(randomizeWallTiles >1 && randomizeWallTiles <=2){
-								tiles[x][y].loadGraphic(AssetPaths.light_brown_tile__png);
+							if(randomizeWallTiles == 2){
+								tiles[x][y].loadGraphic("assets/images/light_brown_tile.png", squareWidth, squareHeight);
+								tiles[x][y].scale.set(squareWidth/tiles[x][y].width, squareHeight/tiles[x][y].height);
+								tiles[x][y].updateHitbox();
+                        		tiles[x][y].setPosition(tiles[x][y].x - squareWidth/2, tiles[x][y].y - squareHeight/2);
+
 							}
-							if(randomizeWallTiles >2 && randomizeWallTiles <=3){
-								tiles[x][y].loadGraphic(AssetPaths.pink_tile__png);
+							if(randomizeWallTiles == 3){
+								tiles[x][y].loadGraphic("assets/images/pink_tile.png", squareWidth, squareHeight);
+								tiles[x][y].scale.set(squareWidth/tiles[x][y].width, squareHeight/tiles[x][y].height);
+								tiles[x][y].updateHitbox();
+                        		tiles[x][y].setPosition(tiles[x][y].x - squareWidth/2, tiles[x][y].y - squareHeight/2);
+
 							}
-							if(randomizeWallTiles >3 && randomizeWallTiles <=4){
-								tiles[x][y].loadGraphic(AssetPaths.orange_tile__png);
+							if(randomizeWallTiles == 4){
+								tiles[x][y].loadGraphic("assets/images/orange_tile.png", squareWidth, squareHeight);
+								tiles[x][y].scale.set(squareWidth/tiles[x][y].width, squareHeight/tiles[x][y].height);
+								tiles[x][y].updateHitbox();
+                        		tiles[x][y].setPosition(tiles[x][y].x - squareWidth/2, tiles[x][y].y - squareHeight/2);
+
 							}
-							if(randomizeWallTiles > 4){
-								tiles[x][y].loadGraphic(AssetPaths.dark_red_tile__png);
+							if(randomizeWallTiles == 5){
+								tiles[x][y].loadGraphic("assets/images/dark_red_tile.png", squareWidth, squareHeight);
+								tiles[x][y].scale.set(squareWidth/tiles[x][y].width, squareHeight/tiles[x][y].height);
+								tiles[x][y].updateHitbox();
+                        		tiles[x][y].setPosition(tiles[x][y].x - squareWidth/2, tiles[x][y].y - squareHeight/2);
 							}
 						}
 					}
 						else {
-							if(randomizeFloorTiles <=1){
-								tiles[x][y].loadGraphic(AssetPaths.flooring_tile_1__png);
+							if(randomizeFloorTiles == 1){
+								tiles[x][y].loadGraphic("assets/images/flooring_tile_1.png", squareWidth, squareHeight);
+								tiles[x][y].scale.set(squareWidth/tiles[x][y].width, squareHeight/tiles[x][y].height);
+								tiles[x][y].updateHitbox();
+                        		tiles[x][y].setPosition(tiles[x][y].x - squareWidth/2, tiles[x][y].y - squareHeight/2);
 							}
-							if(randomizeFloorTiles >1 && randomizeFloorTiles <=2){
-								tiles[x][y].loadGraphic(AssetPaths.flooring_tile_2__png);
+							if(randomizeFloorTiles == 2){
+								tiles[x][y].loadGraphic("assets/images/flooring_tile_2.png", squareWidth, squareHeight);
+								tiles[x][y].scale.set(squareWidth/tiles[x][y].width, squareHeight/tiles[x][y].height);
+								tiles[x][y].updateHitbox();
+                        		tiles[x][y].setPosition(tiles[x][y].x - squareWidth/2, tiles[x][y].y - squareHeight/2);
 							}
-							if(randomizeFloorTiles > 2){
-								tiles[x][y].loadGraphic(AssetPaths.flooring_tile_3__png);
+							if(randomizeFloorTiles == 3){
+								tiles[x][y].loadGraphic("assets/images/flooring_tile_3.png", squareWidth, squareHeight);
+								tiles[x][y].scale.set(squareWidth/tiles[x][y].width, squareHeight/tiles[x][y].height);
+								tiles[x][y].updateHitbox();
+                        		tiles[x][y].setPosition(tiles[x][y].x - squareWidth/2, tiles[x][y].y - squareHeight/2);
 							}
 						lightBulbs[x][y].loadGraphic(AssetPaths.lightbulb__png, squareWidth, squareHeight);
 						crosses[x][y].loadGraphic(AssetPaths.x__png, squareWidth, squareHeight);
