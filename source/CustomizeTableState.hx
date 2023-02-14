@@ -43,11 +43,11 @@ class CustomizeTableState extends FlxSubState
         add(titleText);
 
 
-        rowTitleText = new FlxText(240,160,200, "Row", 15);
+        rowTitleText = new FlxText(240,190,200, "Row", 15);
         rowTitleText.color = FlxColor.BLACK;
         add(rowTitleText);
 
-        _btnUpRow = new FlxButton(220,190, "Up",increaseRow);
+        _btnUpRow = new FlxButton(270,160, "Up",increaseRowCol);
         add(_btnUpRow);
 
         rowText = new FlxText(250,125,200, ""+rows,20);
@@ -55,24 +55,18 @@ class CustomizeTableState extends FlxSubState
         rowText.screenCenter(Y);
 		add(rowText);
 
-        _btnDownRow = new FlxButton(220,270, "Down",decreaseRow);
+        _btnDownRow = new FlxButton(270,270, "Down",decreaseRowCol);
         add(_btnDownRow);
    
 
-        columnTitleText = new FlxText(320,160,200, "Column", 15);
+        columnTitleText = new FlxText(320,190,200, "Column", 15);
         columnTitleText.color = FlxColor.BLACK;
         add(columnTitleText);
 
-        _btnUpColumn = new FlxButton(320,190, "Up",increaseColumn);
-        add(_btnUpColumn);
-
-        columnText = new FlxText(350,125,200, ""+columns,20);
+        columnText = new FlxText(350,165,200, ""+columns,20);
         columnText.color = FlxColor.BLACK;
         columnText.screenCenter(Y);
 		add(columnText);
-
-        _btnDownColumn = new FlxButton(320,270, "Down",decreaseColumn);
-        add(_btnDownColumn);
 
         //adding the button for the user to click to start the game
         _btnPlay = new FlxButton(320,400, "Start",clickPlay);
@@ -96,11 +90,13 @@ class CustomizeTableState extends FlxSubState
 
     // increase the row
 
-    function increaseRow():Void{ 
+    function increaseRowCol():Void{ 
         if(rows <10)
             {
                 rows ++;
                 rowText.text = ""+ rows;
+                columns ++;
+                columnText.text = ""+ columns;
                 remove(alertText);
             }
 
@@ -112,49 +108,21 @@ class CustomizeTableState extends FlxSubState
     }
 
     // decrease the row
-    function decreaseRow():Void{
+    function decreaseRowCol():Void{
         if(rows >4){
             rows --;
             rowText.text = ""+ rows;
-            remove(alertText);
-        }
-        else{
-                remove(alertText);
-                add(alertText);
-        }
-
-    }
-
-    // increase the column
-    function increaseColumn():Void{
-        if(columns < 10)
-            {
-            columns ++;
+            columns --;
             columnText.text = ""+ columns;
             remove(alertText);
-            }
+        }
         else{
-            remove(alertText);
-            add(alertText);
-        }    
-
-    }
-
-    // decrease the column
-    function decreaseColumn():Void{
-        if(columns > 4)
-            {
-                columns --;
-                columnText.text = ""+ columns;
-                remove(alertText);
-            }
-
-            else{
                 remove(alertText);
                 add(alertText);
-            }
+        }
 
     }
+
 
         //play button is clicked
         function clickBack():Void
