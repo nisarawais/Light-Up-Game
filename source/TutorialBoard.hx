@@ -149,6 +149,7 @@ class TutorialBoard extends FlxState{
         }
 
         var winButton = new FlxButton(FlxG.width/2, FlxG.height - 50, "Check Win", checkWin);
+        winButton.screenCenter(X);
         add(winButton);
 
 
