@@ -28,7 +28,11 @@ class PlayState extends FlxState
 
 	var numOfLights: Array<Array<Int>>;
 	var lightBulbs: Array<Array<FlxSprite>>;
+<<<<<<< Updated upstream
 	var crosses: Array<Array<FlxSprite>>;
+=======
+	var score = 0;
+>>>>>>> Stashed changes
 
 	override public function new(columnsPassed: Int, rowsPassed: Int) {
 		super();
@@ -51,6 +55,8 @@ class PlayState extends FlxState
         _btnBack = new FlxButton(50, 450, "Back", clickBack);
         _btnBack.screenCenter(X);
         add(_btnBack);
+
+		
 	}
 
 	override public function update(elapsed:Float)
@@ -114,7 +120,7 @@ class PlayState extends FlxState
         // ======== RANDOMIZE BLACK SQUARES ==========
         var x = 0;
         var y = 0;
-
+		
 		for (x in 0...columns) {
 			for (y in 0...rows) {
 				if (FlxG.random.bool(40)){
@@ -325,12 +331,22 @@ class PlayState extends FlxState
             }
         }
 
+		// setting text for win message
+		// win Text
+		var text = new FlxText(FlxG.width/2, FlxG.height - 450 , 0, "You Win!");
+		text.color = 0x7002FD02;
+
+		// Lose Text
+		var text2 = new FlxText(FlxG.width/2, FlxG.height - 450, 0, "You don't win yet!");
+		text2.color = 0x70FF0202;
+
+		// win if statement
         if(win){
-            var text = new FlxText(FlxG.width/2, 50, 0, "You Win!");
+            remove(text2);
             add (text);
         } else {
-            var text = new FlxText(FlxG.width/2, 50, 0, "You don't win yet!");
-            add (text);
+            remove(text);
+            add (text2);
         }
         
     }
