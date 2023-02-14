@@ -915,7 +915,7 @@ ApplicationMain.main = function() {
 ApplicationMain.create = function(config) {
 	var app = new openfl_display_Application();
 	ManifestResources.init(config);
-	app.meta.h["build"] = "12";
+	app.meta.h["build"] = "15";
 	app.meta.h["company"] = "HaxeFlixel";
 	app.meta.h["file"] = "assignment 1";
 	app.meta.h["name"] = "Light-Up";
@@ -3790,6 +3790,9 @@ DocumentClass.__super__ = Main;
 DocumentClass.prototype = $extend(Main.prototype,{
 	__class__: DocumentClass
 });
+var AssetPaths = function() { };
+$hxClasses["AssetPaths"] = AssetPaths;
+AssetPaths.__name__ = "AssetPaths";
 var flixel_util_IFlxDestroyable = function() { };
 $hxClasses["flixel.util.IFlxDestroyable"] = flixel_util_IFlxDestroyable;
 flixel_util_IFlxDestroyable.__name__ = "flixel.util.IFlxDestroyable";
@@ -4692,11 +4695,11 @@ CustomizeTableState.prototype = $extend(flixel_FlxSubState.prototype,{
 		this.add(this.columnText);
 		this._btnDownColumn = new flixel_ui_FlxButton(320,270,"Down",$bind(this,this.decreaseColumn));
 		this.add(this._btnDownColumn);
-		this._btnPlay = new flixel_ui_FlxButton(220,400,"Start",$bind(this,this.clickPlay));
+		this._btnPlay = new flixel_ui_FlxButton(320,400,"Start",$bind(this,this.clickPlay));
 		this.add(this._btnPlay);
 		this.alertText = new flixel_text_FlxText(170,120,400,"You must choose the number between 4-15.",10);
 		this.alertText.set_color(-65536);
-		this._btnBack = new flixel_ui_FlxButton(320,400,"Back",$bind(this,this.clickBack));
+		this._btnBack = new flixel_ui_FlxButton(220,400,"Back",$bind(this,this.clickBack));
 		this.add(this._btnBack);
 	}
 	,clickPlay: function() {
@@ -4949,7 +4952,7 @@ ManifestResources.init = function(config) {
 	openfl_text_Font.registerFont(_$_$ASSET_$_$OPENFL_$_$flixel_$fonts_$nokiafc22_$ttf);
 	openfl_text_Font.registerFont(_$_$ASSET_$_$OPENFL_$_$flixel_$fonts_$monsterrat_$ttf);
 	var bundle;
-	var data = "{\"name\":null,\"assets\":\"aoy4:sizei5542138y4:typey5:MUSICy2:idy46:assets%2Fmusic%2Fthe-beat-of-nature-122841.mp3y9:pathGroupaR4hy7:preloadtgoR0i5680065R1R2R3y55:assets%2Fmusic%2Fcinematic-atmosphere-score-2-22136.mp3R5aR7hR6tgoR0i4947800R1R2R3y47:assets%2Fmusic%2Fsuspense-dark-ambient-8413.mp3R5aR8hR6tgoy4:pathy36:assets%2Fmusic%2Fmusic-goes-here.txtR0zR1y4:TEXTR3R10R6tgoR0i6684839R1R2R3y41:assets%2Fmusic%2Fmountain-path-125573.mp3R5aR12hR6tgoR0i6495921R1R2R3y40:assets%2Fmusic%2Fcaves-of-dawn-10376.mp3R5aR13hR6tgoR9y34:assets%2Fmusic%2Fmusic_website.txtR0i26R1R11R3R14R6tgoR0i4711235R1R2R3y38:assets%2Fmusic%2Flofi-study-112191.mp3R5aR15hR6tgoR9y35:assets%2Fimages%2Fquestion_mark.pngR0i210R1y5:IMAGER3R16R6tgoR9y23:assets%2Fimages%2Fx.pngR0i302R1R17R3R18R6tgoR9y37:assets%2Fimages%2Fmenu_background.pngR0i26434R1R17R3R19R6tgoR9y32:assets%2Fimages%2Fbackground.pngR0i30528R1R17R3R20R6tgoR9y36:assets%2Fimages%2Fimages-go-here.txtR0zR1R11R3R21R6tgoR9y31:assets%2Fimages%2Flightbulb.pngR0i320R1R17R3R22R6tgoR0i250230R1y5:SOUNDR3y37:assets%2Fsounds%2Flightswitch_off.wavR5aR24hR6tgoR9y43:assets%2Fsounds%2FNew%20Text%20Document.txtR0i39R1R11R3R25R6tgoR0i198730R1R23R3y36:assets%2Fsounds%2Flightswitch_on.wavR5aR26hR6tgoR9y36:assets%2Fsounds%2Fsounds-go-here.txtR0zR1R11R3R27R6tgoR9y34:assets%2Fdata%2Fdata-goes-here.txtR0zR1R11R3R28R6tgoR0i39706R1R2R3y28:flixel%2Fsounds%2Fflixel.mp3R5aR29y28:flixel%2Fsounds%2Fflixel.ogghR6tgoR0i2114R1R2R3y26:flixel%2Fsounds%2Fbeep.mp3R5aR31y26:flixel%2Fsounds%2Fbeep.ogghR6tgoR0i5794R1R23R3R32R5aR31R32hgoR0i33629R1R23R3R30R5aR29R30hgoR0i15744R1y4:FONTy9:classNamey35:__ASSET__flixel_fonts_nokiafc22_ttfR3y30:flixel%2Ffonts%2Fnokiafc22.ttfR6tgoR0i29724R1R33R34y36:__ASSET__flixel_fonts_monsterrat_ttfR3y31:flixel%2Ffonts%2Fmonsterrat.ttfR6tgoR9y33:flixel%2Fimages%2Fui%2Fbutton.pngR0i519R1R17R3R39R6tgoR9y36:flixel%2Fimages%2Flogo%2Fdefault.pngR0i3280R1R17R3R40R6tgh\",\"rootPath\":null,\"version\":2,\"libraryArgs\":[],\"libraryType\":null}";
+	var data = "{\"name\":null,\"assets\":\"aoy4:sizei5542138y4:typey5:MUSICy2:idy46:assets%2Fmusic%2Fthe-beat-of-nature-122841.mp3y9:pathGroupaR4hy7:preloadtgoR0i5680065R1R2R3y55:assets%2Fmusic%2Fcinematic-atmosphere-score-2-22136.mp3R5aR7hR6tgoR0i4947800R1R2R3y47:assets%2Fmusic%2Fsuspense-dark-ambient-8413.mp3R5aR8hR6tgoy4:pathy36:assets%2Fmusic%2Fmusic-goes-here.txtR0zR1y4:TEXTR3R10R6tgoR0i6684839R1R2R3y41:assets%2Fmusic%2Fmountain-path-125573.mp3R5aR12hR6tgoR0i6495921R1R2R3y40:assets%2Fmusic%2Fcaves-of-dawn-10376.mp3R5aR13hR6tgoR9y34:assets%2Fmusic%2Fmusic_website.txtR0i26R1R11R3R14R6tgoR0i4711235R1R2R3y38:assets%2Fmusic%2Flofi-study-112191.mp3R5aR15hR6tgoR9y35:assets%2Fimages%2Fquestion_mark.pngR0i210R1y5:IMAGER3R16R6tgoR9y42:assets%2Fimages%2Forange_tile_no_score.pngR0i143R1R17R3R18R6tgoR9y23:assets%2Fimages%2Fx.pngR0i300R1R17R3R19R6tgoR9y37:assets%2Fimages%2Fmenu_background.pngR0i26434R1R17R3R20R6tgoR9y32:assets%2Fimages%2Fbackground.pngR0i30528R1R17R3R21R6tgoR9y45:assets%2Fimages%2Fdark_red_brick_no_score.pngR0i141R1R17R3R22R6tgoR9y47:assets%2Fimages%2Flight_brown_tile_no_score.pngR0i143R1R17R3R23R6tgoR9y37:assets%2Fimages%2Fflooring_tile_1.pngR0i495R1R17R3R24R6tgoR9y37:assets%2Fimages%2Fflooring_tile_2.pngR0i409R1R17R3R25R6tgoR9y37:assets%2Fimages%2Fflooring_tile_3.pngR0i478R1R17R3R26R6tgoR9y41:assets%2Fimages%2Fbrown_tile_no_score.pngR0i141R1R17R3R27R6tgoR9y36:assets%2Fimages%2Fimages-go-here.txtR0zR1R11R3R28R6tgoR9y31:assets%2Fimages%2Flightbulb.pngR0i281R1R17R3R29R6tgoR0i250230R1y5:SOUNDR3y37:assets%2Fsounds%2Flightswitch_off.wavR5aR31hR6tgoR9y43:assets%2Fsounds%2FNew%20Text%20Document.txtR0i39R1R11R3R32R6tgoR0i198730R1R30R3y36:assets%2Fsounds%2Flightswitch_on.wavR5aR33hR6tgoR9y36:assets%2Fsounds%2Fsounds-go-here.txtR0zR1R11R3R34R6tgoR9y34:assets%2Fdata%2Fdata-goes-here.txtR0zR1R11R3R35R6tgoR0i39706R1R2R3y28:flixel%2Fsounds%2Fflixel.mp3R5aR36y28:flixel%2Fsounds%2Fflixel.ogghR6tgoR0i2114R1R2R3y26:flixel%2Fsounds%2Fbeep.mp3R5aR38y26:flixel%2Fsounds%2Fbeep.ogghR6tgoR0i5794R1R30R3R39R5aR38R39hgoR0i33629R1R30R3R37R5aR36R37hgoR0i15744R1y4:FONTy9:classNamey35:__ASSET__flixel_fonts_nokiafc22_ttfR3y30:flixel%2Ffonts%2Fnokiafc22.ttfR6tgoR0i29724R1R40R41y36:__ASSET__flixel_fonts_monsterrat_ttfR3y31:flixel%2Ffonts%2Fmonsterrat.ttfR6tgoR9y33:flixel%2Fimages%2Fui%2Fbutton.pngR0i519R1R17R3R46R6tgoR9y36:flixel%2Fimages%2Flogo%2Fdefault.pngR0i3280R1R17R3R47R6tgh\",\"rootPath\":null,\"version\":2,\"libraryArgs\":[],\"libraryType\":null}";
 	var manifest = lime_utils_AssetManifest.parse(data,ManifestResources.rootPath);
 	var library = lime_utils_AssetLibrary.fromManifest(manifest);
 	lime_utils_Assets.registerLibrary("default",library);
@@ -5303,7 +5306,7 @@ MenuState.prototype = $extend(flixel_FlxState.prototype,{
 	,create: function() {
 		flixel_FlxState.prototype.create.call(this);
 		this.get_camera().bgColor = -1;
-		this._btnPlay = new flixel_ui_FlxButton(50,50,"New Game",$bind(this,this.clickPlay));
+		this._btnPlay = new flixel_ui_FlxButton(50,180,"New Game",$bind(this,this.clickPlay));
 		var _this = this._btnPlay;
 		var axes = 1;
 		if(axes == null) {
@@ -5328,8 +5331,19 @@ MenuState.prototype = $extend(flixel_FlxState.prototype,{
 		if(axes == 16 || axes == 17) {
 			_this.set_y((flixel_FlxG.height - _this.get_height()) / 2);
 		}
+		var _this = this._btnTutorial;
+		var axes = 16;
+		if(axes == null) {
+			axes = 17;
+		}
+		if(axes == 1 || axes == 17) {
+			_this.set_x((flixel_FlxG.width - _this.get_width()) / 2);
+		}
+		if(axes == 16 || axes == 17) {
+			_this.set_y((flixel_FlxG.height - _this.get_height()) / 2);
+		}
 		this.add(this._btnTutorial);
-		this._btnRules = new flixel_ui_FlxButton(50,170,"Rules",$bind(this,this.clickRules));
+		this._btnRules = new flixel_ui_FlxButton(50,280,"Rules",$bind(this,this.clickRules));
 		var _this = this._btnRules;
 		var axes = 1;
 		if(axes == null) {
@@ -5595,18 +5609,7 @@ RulesState.prototype = $extend(flixel_FlxState.prototype,{
 	,create: function() {
 		flixel_FlxState.prototype.create.call(this);
 		this.get_camera().bgColor = -1;
-		this._titleText = new flixel_text_FlxText(0,10,550,"Rules",15);
-		var _this = this._titleText;
-		var axes = 1;
-		if(axes == null) {
-			axes = 17;
-		}
-		if(axes == 1 || axes == 17) {
-			_this.set_x((flixel_FlxG.width - _this.get_width()) / 2);
-		}
-		if(axes == 16 || axes == 17) {
-			_this.set_y((flixel_FlxG.height - _this.get_height()) / 2);
-		}
+		this._titleText = new flixel_text_FlxText(300,10,550,"Rules",15);
 		this._titleText.set_color(-16777216);
 		this.add(this._titleText);
 		this._rulesText = new flixel_text_FlxText(100,50,550,"1. Light blocks can be placed anywhere on the grid where there isn't any black squares\n        \n2. Light blocks make a line of light in all 4 directions (up, down, left, right), including the square they were placed on, until they either hit the edge of the map or a black square\n        \n3. Light blocks cannot be placed within line of sight of another light block (in the trail of light from another light block)\n        \n4. All white squares must be lit up to solve the puzzle\n        \n5. You can place a marker where you don't think a light block will go (has no effect on the game besides not allowing a light block to be placed on it, like a bomb flag in minesweeper)\n        \n6. Black blocks can have no number, 0, 1, 2, 3, or 4 on them\n        \n7. Black blocks with a number on them needs to have exactly that number of light blocks near them (within one block up, down, left, or right of them, but the diagonals do not count) and cannot have more or less near them to successfully solve the puzzle\n        \n8. Black blocks with no number can have any number of light blocks around them",11);
@@ -5623,7 +5626,7 @@ RulesState.prototype = $extend(flixel_FlxState.prototype,{
 		}
 		this._rulesText.set_color(-16777216);
 		this.add(this._rulesText);
-		this._btnBack = new flixel_ui_FlxButton(50,400,"Back",$bind(this,this.clickBack));
+		this._btnBack = new flixel_ui_FlxButton(50,430,"Back",$bind(this,this.clickBack));
 		var _this = this._btnBack;
 		var axes = 1;
 		if(axes == null) {
@@ -5822,7 +5825,9 @@ TutorialBoard.prototype = $extend(flixel_FlxState.prototype,{
 	,tiles: null
 	,_btnBack: null
 	,grid: null
+	,lightBulbs: null
 	,create: function() {
+		var _gthis = this;
 		flixel_FlxState.prototype.create.call(this);
 		this.columns = 7;
 		this.rows = 7;
@@ -5849,25 +5854,45 @@ TutorialBoard.prototype = $extend(flixel_FlxState.prototype,{
 		this.add(board);
 		this.grid = [[0,-1,-1,0,0,0,0],[0,0,0,0,-1,0,-1],[0,-1,0,0,0,0,-1],[0,0,0,0,0,0,0],[-1,0,0,0,0,-1,0],[-1,0,-1,0,0,0,0],[0,0,0,0,-1,-1,0]];
 		this.tiles = [];
+		this.lightBulbs = [];
 		var squareX = board.x + 1;
 		var squareY = board.y + 1;
 		var _g = 0;
 		var _g1 = this.columns;
 		while(_g < _g1) {
-			var x = _g++;
-			this.tiles[x] = [];
+			var x = [_g++];
+			this.tiles[x[0]] = [];
+			this.lightBulbs[x[0]] = [];
 			var _g2 = 0;
 			var _g3 = this.rows;
 			while(_g2 < _g3) {
-				var y = _g2++;
-				this.tiles[x][y] = new flixel_FlxSprite();
-				if(this.grid[x][y] < 0) {
-					this.tiles[x][y].makeGraphic(this.squareWidth,this.squareHeight,-16777216);
+				var y = [_g2++];
+				this.tiles[x[0]][y[0]] = new flixel_FlxSprite();
+				this.lightBulbs[x[0]][y[0]] = new flixel_FlxSprite();
+				if(this.grid[x[0]][y[0]] < 0) {
+					this.tiles[x[0]][y[0]].makeGraphic(this.squareWidth,this.squareHeight,-16777216);
 				} else {
-					this.tiles[x][y].makeGraphic(this.squareWidth,this.squareHeight,-1);
+					this.tiles[x[0]][y[0]].makeGraphic(this.squareWidth,this.squareHeight,-1);
+					this.lightBulbs[x[0]][y[0]].loadGraphic("assets/images/lightbulb.png",null,this.squareWidth,this.squareHeight);
+					flixel_input_mouse_FlxMouseEvent.globalManager.add(this.tiles[x[0]][y[0]],(function(y,x) {
+						return function(sprite) {
+							if(sprite.color == 1895822724) {
+								_gthis.lightUp(0,sprite);
+								_gthis.lightBulbs[x[0]][y[0]].kill();
+								_gthis.lightBeam(false,_gthis.tiles[x[0]][y[0]],x[0],y[0]);
+							} else {
+								_gthis.lightUp(1,sprite);
+								_gthis.lightBulbs[x[0]][y[0]].revive();
+								_gthis.lightBeam(true,_gthis.tiles[x[0]][y[0]],x[0],y[0]);
+							}
+						};
+					})(y,x),null,null,null,false,true,true,null);
 				}
-				this.tiles[x][y].setPosition(squareX,squareY);
-				this.add(this.tiles[x][y]);
+				this.tiles[x[0]][y[0]].setPosition(squareX,squareY);
+				this.lightBulbs[x[0]][y[0]].setPosition(squareX,squareY);
+				this.add(this.tiles[x[0]][y[0]]);
+				this.add(this.lightBulbs[x[0]][y[0]]);
+				this.lightBulbs[x[0]][y[0]].kill();
 				squareY += 2 + this.squareHeight;
 			}
 			squareY = board.y + 1;
@@ -5921,6 +5946,72 @@ TutorialBoard.prototype = $extend(flixel_FlxState.prototype,{
 			tile.set_color(1895822724);
 		} else if(gridVal > 1) {
 			tile.set_color(1895793796);
+		}
+	}
+	,lightBeam: function(gridVal,tile,x,y) {
+		this.lightBeamUp(gridVal,tile,x,y);
+		this.lightBeamDown(gridVal,tile,x,y);
+		this.lightBeamLeft(gridVal,tile,x,y);
+		this.lightBeamRight(gridVal,tile,x,y);
+	}
+	,lightBeamUp: function(gridVal,tile,x,y) {
+		if(gridVal) {
+			if(y - 1 >= 0) {
+				if(this.grid[x][y - 1] == 0) {
+					this.lightUp(1,this.tiles[x][y - 1]);
+					this.lightBeamUp(gridVal,this.tiles[x][y - 1],x,y - 1);
+				}
+			}
+		} else if(y - 1 >= 0) {
+			if(this.grid[x][y - 1] == 0) {
+				this.lightUp(0,this.tiles[x][y - 1]);
+				this.lightBeamUp(gridVal,this.tiles[x][y - 1],x,y - 1);
+			}
+		}
+	}
+	,lightBeamDown: function(gridVal,tile,x,y) {
+		if(gridVal) {
+			if(y + 1 <= this.columns) {
+				if(this.grid[x][y + 1] == 0) {
+					this.lightUp(1,this.tiles[x][y + 1]);
+					this.lightBeamDown(gridVal,this.tiles[x][y + 1],x,y + 1);
+				}
+			}
+		} else if(y + 1 <= this.columns) {
+			if(this.grid[x][y + 1] == 0) {
+				this.lightUp(0,this.tiles[x][y + 1]);
+				this.lightBeamDown(gridVal,this.tiles[x][y + 1],x,y + 1);
+			}
+		}
+	}
+	,lightBeamLeft: function(gridVal,tile,x,y) {
+		if(gridVal) {
+			if(x - 1 >= 0) {
+				if(this.grid[x - 1][y] == 0) {
+					this.lightUp(1,this.tiles[x - 1][y]);
+					this.lightBeamLeft(gridVal,this.tiles[x - 1][y],x - 1,y);
+				}
+			}
+		} else if(x - 1 >= 0) {
+			if(this.grid[x - 1][y] == 0) {
+				this.lightUp(0,this.tiles[x - 1][y]);
+				this.lightBeamLeft(gridVal,this.tiles[x - 1][y],x - 1,y);
+			}
+		}
+	}
+	,lightBeamRight: function(gridVal,tile,x,y) {
+		if(gridVal) {
+			if(x + 1 <= this.rows - 1) {
+				if(this.grid[x + 1][y] == 0) {
+					this.lightUp(1,this.tiles[x + 1][y]);
+					this.lightBeamRight(gridVal,this.tiles[x + 1][y],x + 1,y);
+				}
+			}
+		} else if(x + 1 <= this.rows - 1) {
+			if(this.grid[x + 1][y] == 0) {
+				this.lightUp(0,this.tiles[x + 1][y]);
+				this.lightBeamRight(gridVal,this.tiles[x + 1][y],x + 1,y);
+			}
 		}
 	}
 	,__class__: TutorialBoard
@@ -76000,7 +76091,7 @@ var lime_utils_AssetCache = function() {
 	this.audio = new haxe_ds_StringMap();
 	this.font = new haxe_ds_StringMap();
 	this.image = new haxe_ds_StringMap();
-	this.version = 468621;
+	this.version = 744197;
 };
 $hxClasses["lime.utils.AssetCache"] = lime_utils_AssetCache;
 lime_utils_AssetCache.__name__ = "lime.utils.AssetCache";
@@ -124286,6 +124377,32 @@ openfl_display_DisplayObject.__tempStack = new lime_utils_ObjectPool(function() 
 },function(stack) {
 	stack.set_length(0);
 });
+AssetPaths.the_beat_of_nature_122841__mp3 = "assets/music/the-beat-of-nature-122841.mp3";
+AssetPaths.cinematic_atmosphere_score_2_22136__mp3 = "assets/music/cinematic-atmosphere-score-2-22136.mp3";
+AssetPaths.suspense_dark_ambient_8413__mp3 = "assets/music/suspense-dark-ambient-8413.mp3";
+AssetPaths.music_goes_here__txt = "assets/music/music-goes-here.txt";
+AssetPaths.mountain_path_125573__mp3 = "assets/music/mountain-path-125573.mp3";
+AssetPaths.caves_of_dawn_10376__mp3 = "assets/music/caves-of-dawn-10376.mp3";
+AssetPaths.music_website__txt = "assets/music/music_website.txt";
+AssetPaths.lofi_study_112191__mp3 = "assets/music/lofi-study-112191.mp3";
+AssetPaths.question_mark__png = "assets/images/question_mark.png";
+AssetPaths.orange_tile_no_score__png = "assets/images/orange_tile_no_score.png";
+AssetPaths.x__png = "assets/images/x.png";
+AssetPaths.menu_background__png = "assets/images/menu_background.png";
+AssetPaths.background__png = "assets/images/background.png";
+AssetPaths.dark_red_brick_no_score__png = "assets/images/dark_red_brick_no_score.png";
+AssetPaths.light_brown_tile_no_score__png = "assets/images/light_brown_tile_no_score.png";
+AssetPaths.flooring_tile_1__png = "assets/images/flooring_tile_1.png";
+AssetPaths.flooring_tile_2__png = "assets/images/flooring_tile_2.png";
+AssetPaths.flooring_tile_3__png = "assets/images/flooring_tile_3.png";
+AssetPaths.brown_tile_no_score__png = "assets/images/brown_tile_no_score.png";
+AssetPaths.images_go_here__txt = "assets/images/images-go-here.txt";
+AssetPaths.lightbulb__png = "assets/images/lightbulb.png";
+AssetPaths.lightswitch_off__wav = "assets/sounds/lightswitch_off.wav";
+AssetPaths.New_Text_Document__txt = "assets/sounds/New Text Document.txt";
+AssetPaths.lightswitch_on__wav = "assets/sounds/lightswitch_on.wav";
+AssetPaths.sounds_go_here__txt = "assets/sounds/sounds-go-here.txt";
+AssetPaths.data_goes_here__txt = "assets/data/data-goes-here.txt";
 flixel_FlxBasic.idEnumerator = 0;
 openfl_text_Font.__fontByName = new haxe_ds_StringMap();
 openfl_text_Font.__registeredFonts = [];

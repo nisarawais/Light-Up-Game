@@ -21,15 +21,16 @@ class MenuState extends FlxState
 
         camera.bgColor = FlxColor.WHITE;
         //adding the button for the user to click to start the game
-        _btnPlay = new FlxButton(50,50, "New Game",clickPlay);
+        _btnPlay = new FlxButton(50,180, "New Game",clickPlay);
         _btnPlay.screenCenter(X);
         add(_btnPlay);
 
         _btnTutorial = new FlxButton(50, 110, "Tutorial Board", clickTutorial);
         _btnTutorial.screenCenter(X);
+        _btnTutorial.screenCenter(Y);
         add(_btnTutorial);
 
-        _btnRules = new FlxButton(50, 170, "Rules", clickRules);
+        _btnRules = new FlxButton(50, 280, "Rules", clickRules);
         _btnRules.screenCenter(X);
         add(_btnRules);
 

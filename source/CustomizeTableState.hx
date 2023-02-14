@@ -75,14 +75,14 @@ class CustomizeTableState extends FlxSubState
         add(_btnDownColumn);
 
         //adding the button for the user to click to start the game
-        _btnPlay = new FlxButton(220,400, "Start",clickPlay);
+        _btnPlay = new FlxButton(320,400, "Start",clickPlay);
         add(_btnPlay);
         
         alertText = new FlxText(170,120,400, "You must choose the number between 4-15.", 10);
         alertText.color = FlxColor.RED;
 
 
-        _btnBack = new FlxButton(320, 400, "Back", clickBack);
+        _btnBack = new FlxButton(220, 400, "Back", clickBack);
         add(_btnBack);
 
     }

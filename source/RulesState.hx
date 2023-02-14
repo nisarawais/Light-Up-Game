@@ -21,8 +21,7 @@ class RulesState extends FlxState
 
         camera.bgColor = FlxColor.WHITE;
 
-        _titleText = new FlxText(0,10,550, "Rules", 15);
-        _titleText.screenCenter(X);
+        _titleText = new FlxText(300,10,550, "Rules", 15);
         _titleText.color = FlxColor.BLACK;
         add(_titleText);
 
@@ -38,7 +37,7 @@ class RulesState extends FlxState
         _rulesText.color = FlxColor.BLACK;
         add(_rulesText);
 
-        _btnBack = new FlxButton(50, 400, "Back", clickBack);
+        _btnBack = new FlxButton(50, 430, "Back", clickBack);
         _btnBack.screenCenter(X);
         add(_btnBack);
 
