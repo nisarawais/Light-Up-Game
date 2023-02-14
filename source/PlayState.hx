@@ -7,6 +7,7 @@ import flixel.FlxState;
 import flixel.FlxG;
 import flixel.util.FlxColor;
 import flixel.input.mouse.FlxMouseEvent;
+import flixel.input.mouse.FlxMouseButton;
 
 
 class PlayState extends FlxState
@@ -27,6 +28,7 @@ class PlayState extends FlxState
 
 	var numOfLights: Array<Array<Int>>;
 	var lightBulbs: Array<Array<FlxSprite>>;
+	var crosses: Array<Array<FlxSprite>>;
 
 	override public function new(columnsPassed: Int, rowsPassed: Int) {
 		super();
@@ -138,13 +140,16 @@ class PlayState extends FlxState
 			var squareX = board.x + 1;
 			var squareY = board.y + 1;
 			lightBulbs = new Array<Array<FlxSprite>>();
+			crosses = new  Array<Array<FlxSprite>>();
 
 			for (x in 0...columns) {
 				tiles[x] = new Array<FlxSprite>();
 				lightBulbs[x] = new Array<FlxSprite>();
+				crosses[x] = new Array<FlxSprite>();
 				for (y in 0...rows) {
 					tiles[x][y] = new FlxSprite();
 					lightBulbs[x][y] = new FlxSprite();
+					crosses[x][y] = new FlxSprite();
 					// make black if negative (-1)
 					if (grid[x][y] < 0) {
 						tiles[x][y].makeGraphic(squareWidth, squareHeight, FlxColor.BLACK);
@@ -152,6 +157,7 @@ class PlayState extends FlxState
 					else {
 						tiles[x][y].makeGraphic(squareWidth, squareHeight, FlxColor.WHITE);
 						lightBulbs[x][y].loadGraphic(AssetPaths.lightbulb__png, squareWidth, squareHeight);
+						crosses[x][y].loadGraphic(AssetPaths.x__png, squareWidth, squareHeight);
 						FlxMouseEvent.add(tiles[x][y], function(sprite:FlxSprite) {
 							if(grid[x][y] == 1) {
 								grid[x][y] = 0;
@@ -164,15 +170,34 @@ class PlayState extends FlxState
 								grid[x][y] = 1;
 								lightUp(1, sprite);
 								lightBulbs[x][y].revive();
+								crosses[x][y].kill();
 								lightBeam(true, tiles[x][y], x, y);
 							}
-						});
+						}, null, null, null, true);
+						FlxMouseEvent.add(tiles[x][y], function(sprite:FlxSprite) {
+                        if(grid[x][y] == 1) {
+                            grid[x][y] = 0;
+                            if(!lightVisibleFromCell(x, y)) {
+                                lightUp(0, sprite);
+                            }
+                            lightBulbs[x][y].kill();
+                            lightBeam(false, tiles[x][y], x, y);
+                        }
+                        if(crosses[x][y].alive) {
+                            crosses[x][y].kill();
+                        } else {
+                            crosses[x][y].revive();
+                        }
+                    }, null, null, null, true, true, true, [FlxMouseButtonID.RIGHT]);
 					}
 					tiles[x][y].setPosition(squareX, squareY);
 					lightBulbs[x][y].setPosition(squareX, squareY);
+					crosses[x][y].setPosition(squareX, squareY);
 					add(tiles[x][y]);
 					add(lightBulbs[x][y]);
+					add(crosses[x][y]);
 					lightBulbs[x][y].kill();
+					crosses[x][y].kill();
 
 
 					// next square up
