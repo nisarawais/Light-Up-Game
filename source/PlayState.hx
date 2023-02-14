@@ -3,6 +3,7 @@ package;
 import flixel.text.FlxText;
 import flixel.ui.FlxButton;
 import flixel.FlxSprite;
+import flixel.system.FlxAssets.FlxGraphicAsset;
 import flixel.FlxState;
 import flixel.FlxG;
 import flixel.util.FlxColor;
@@ -154,10 +155,14 @@ class PlayState extends FlxState
 			tiles = new Array<Array<FlxSprite>>();
 			var squareX = board.x + 1;
 			var squareY = board.y + 1;
+			var randomizeWallTiles;
+			var randomizeFloorTiles;
 			lightBulbs = new Array<Array<FlxSprite>>();
 			crosses = new  Array<Array<FlxSprite>>();
 
 			for (x in 0...columns) {
+				randomizeWallTiles = (Math.random() * 5);
+				randomizeFloorTiles = (Math.random() * 3);
 				tiles[x] = new Array<FlxSprite>();
 				lightBulbs[x] = new Array<FlxSprite>();
 				crosses[x] = new Array<FlxSprite>();
@@ -167,10 +172,34 @@ class PlayState extends FlxState
 					crosses[x][y] = new FlxSprite();
 					// make black if negative (-1)
 					if (grid[x][y] < 0) {
-						tiles[x][y].makeGraphic(squareWidth, squareHeight, FlxColor.BLACK);
+						if (grid[x][y] < 0) {
+							if(randomizeWallTiles <=1){
+								tiles[x][y].loadGraphic(AssetPaths.brown_tile__png, squareWidth, squareHeight);
+							}
+							if(randomizeFloorTiles >1 && randomizeFloorTiles <=2){
+								tiles[x][y].loadGraphic(AssetPaths.light_brown_tile__png, squareWidth, squareHeight);
+							}
+							if(randomizeFloorTiles >2 && randomizeFloorTiles <=3){
+								tiles[x][y].loadGraphic(AssetPaths.pink_tile__png, squareWidth, squareHeight);
+							}
+							if(randomizeFloorTiles >3 && randomizeFloorTiles <=4){
+								tiles[x][y].loadGraphic(AssetPaths.orange_tile__png, squareWidth, squareHeight);
+							}
+							if(randomizeFloorTiles > 4){
+								tiles[x][y].loadGraphic(AssetPaths.dark_red_tile__png, squareWidth, squareHeight);
+							}
+						}
 					}
-					else {
-						tiles[x][y].makeGraphic(squareWidth, squareHeight, FlxColor.WHITE);
+						else {
+							if(randomizeFloorTiles <=1){
+								tiles[x][y].loadGraphic(AssetPaths.flooring_tile_1__png, squareWidth, squareHeight);
+							}
+							if(randomizeFloorTiles >1 && randomizeFloorTiles <=2){
+								tiles[x][y].loadGraphic(AssetPaths.flooring_tile_2__png, squareWidth, squareHeight);
+							}
+							if(randomizeFloorTiles > 2){
+								tiles[x][y].loadGraphic(AssetPaths.flooring_tile_3__png, squareWidth, squareHeight);
+							}
 						lightBulbs[x][y].loadGraphic(AssetPaths.lightbulb__png, squareWidth, squareHeight);
 						crosses[x][y].loadGraphic(AssetPaths.x__png, squareWidth, squareHeight);
 						FlxMouseEvent.add(tiles[x][y], function(sprite:FlxSprite) {
@@ -319,7 +348,6 @@ class PlayState extends FlxState
 			}
 		}
 	}
-
 	/**
 	*	Check if the win conditions are met and displays the win/no win message
 	*/

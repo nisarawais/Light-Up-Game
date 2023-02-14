@@ -1,6 +1,6 @@
 -main ApplicationMain 
--cp C:/HaxeToolkit/haxe/lib/flixel/5,2,1
--D flixel=5.2.1
+-cp C:/HaxeToolkit/haxe/lib/flixel/5,1,0
+-D flixel=5.1.0
 --macro openfl.utils._internal.ExtraParamsMacro.include()
 -cp C:/HaxeToolkit/haxe/lib/openfl/9,2,0/src
 -D openfl=9.2.0
