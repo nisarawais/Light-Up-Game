@@ -1,7 +1,6 @@
 package;
 
 import flixel.ui.FlxButton;
-import flixel.ui.FlxButton;
 import flixel.text.FlxText;
 import flixel.FlxSprite;
 import flixel.FlxState;
@@ -9,6 +8,7 @@ import flixel.FlxG;
 import flixel.util.FlxColor;
 import flixel.input.mouse.FlxMouseEvent;
 import flixel.input.mouse.FlxMouseButton;
+import flixel.input.gamepad.FlxGamepad;
 
 class TutorialBoard extends FlxState{
     var boardWidth: Int;
@@ -19,11 +19,21 @@ class TutorialBoard extends FlxState{
 	var squareHeight: Int;
 	var tiles: Array<Array<FlxSprite>>;
     var _btnBack:FlxButton;
+    var _btnWin:FlxButton;
     var grid: Array<Array<Int>>;
 
     var lightBulbs: Array<Array<FlxSprite>>;
     var blackGrid:Array<Array<Int>>;
     var crosses: Array<Array<FlxSprite>>;
+
+    // New variables for controller input
+	var cursorPositionX:Int;
+	var cursorPositionY:Int;
+	var inGameBool:Bool = false;
+    var cursorSprite:FlxSprite;
+    var menuItems:Array<FlxButton>;
+    var cursorIndex:Int = 0;
+    var gamepad:FlxGamepad;
 
     override public function create():Void {
         super.create();
@@ -176,16 +186,26 @@ class TutorialBoard extends FlxState{
             }
         }
 
-        var winButton = new FlxButton(FlxG.width/2, FlxG.height - 50, "Check Win", checkWin);
-        winButton.screenCenter(X);
-        add(winButton);
-
-
+        var _btnWin = new FlxButton(FlxG.width/2, FlxG.height - 50, "Check Win", checkWin);
+        _btnWin.screenCenter(X);
+        add(_btnWin);
 
         _btnBack = new FlxButton(50, 450, "Back", clickBack);
         _btnBack.screenCenter(X);
         add(_btnBack);
 
+        cursorPositionX = 0;
+		cursorPositionY = 0;
+		// Initialize the cursor sprite and menu items array
+		cursorSprite = new FlxSprite();
+		cursorSprite.loadGraphic("assets/images/cursor.png");
+		cursorSprite.x = tiles[0][0].x - cursorSprite.width - 8;
+		cursorSprite.y = tiles[0][0].y - 8;
+		add(cursorSprite);
+
+		// Initialize the menu items array
+		menuItems = [_btnWin, _btnBack];
+		cursorIndex = 0;
     }
 
         //play button is clicked
@@ -198,7 +218,117 @@ class TutorialBoard extends FlxState{
     override public function update(elapsed:Float) {
         super.update(elapsed);
 
-        
+        gamepad = FlxG.gamepads.lastActive;
+		if (gamepad != null) {
+
+			updateGamepadInput(gamepad);
+		}
+	}
+
+	function updateGamepadInput(gamepad:FlxGamepad) {
+		if(gamepad.justPressed.Y){
+			if(inGameBool == true)
+				inGameBool = false;
+			else if (inGameBool == false)
+				inGameBool = true;
+		}
+		if(inGameBool){
+			// Check if the joystick is moved up or down
+			if (gamepad.justPressed.LEFT_STICK_DIGITAL_DOWN || gamepad.justPressed.DPAD_DOWN)
+				{
+					// Move the cursor down
+					cursorPositionY++;
+					if (cursorPositionY >= rows) cursorPositionY = rows-1;
+
+				}
+				else if (gamepad.justPressed.LEFT_STICK_DIGITAL_UP || gamepad.justPressed.DPAD_UP)
+				{
+					// Move the cursor up
+					cursorPositionY--;
+					if (cursorPositionY < 0) cursorPositionY = 0;
+				}
+				else if (gamepad.justPressed.LEFT_STICK_DIGITAL_LEFT || gamepad.justPressed.DPAD_LEFT)
+				{
+					// Move the cursor left
+					cursorPositionX--;
+					if (cursorPositionX < 0) cursorPositionX = 0;
+				}
+				else if (gamepad.justPressed.LEFT_STICK_DIGITAL_RIGHT || gamepad.justPressed.DPAD_RIGHT)
+				{
+					// Move the cursor right
+					cursorPositionX++;
+					if (cursorPositionX >= columns) cursorPositionX = columns-1;
+				}
+					
+				// Check if the A button is pressed
+				if (gamepad.justReleased.A)
+				{
+					// Call the function corresponding to the selected menu item
+					if(grid[cursorPositionX][cursorPositionY] == 1) {
+						grid[cursorPositionX][cursorPositionY] = 0;
+						if(!lightVisibleFromCell(cursorPositionX, cursorPositionY)) {
+							lightUp(0, tiles[cursorPositionX][cursorPositionY]);
+						}
+						lightBulbs[cursorPositionX][cursorPositionY].kill();
+						lightBeam(false, tiles[cursorPositionX][cursorPositionY], cursorPositionX, cursorPositionY);
+					} else {
+						grid[cursorPositionX][cursorPositionY] = 1;
+						lightUp(1, tiles[cursorPositionX][cursorPositionY]);
+						lightBulbs[cursorPositionX][cursorPositionY].revive();
+						crosses[cursorPositionX][cursorPositionY].kill();
+						lightBeam(true, tiles[cursorPositionX][cursorPositionY], cursorPositionX, cursorPositionY);
+					}
+				}
+				if (gamepad.justReleased.B){
+					if(grid[cursorPositionX][cursorPositionY] == 1) {
+						grid[cursorPositionX][cursorPositionY] = 0;
+						if(!lightVisibleFromCell(cursorPositionX, cursorPositionY)) {
+							lightUp(0, tiles[cursorPositionX][cursorPositionY]);
+						}
+						lightBulbs[cursorPositionX][cursorPositionY].kill();
+						lightBeam(false, tiles[cursorPositionX][cursorPositionY], cursorPositionX, cursorPositionY);
+					}
+					if(crosses[cursorPositionX][cursorPositionY].alive) {
+						crosses[cursorPositionX][cursorPositionY].kill();
+					} else {
+						crosses[cursorPositionX][cursorPositionY].revive();
+					}
+				}
+				// Update the position of the cursor sprite
+				cursorSprite.y = tiles[cursorPositionX][cursorPositionY].y - 8;
+				cursorSprite.x = tiles[cursorPositionX][cursorPositionY].x;
+		}
+		if(!inGameBool){
+			// Check if the joystick is moved up or down
+			if (gamepad.justPressed.LEFT_STICK_DIGITAL_DOWN || gamepad.justPressed.DPAD_DOWN)
+			{
+				// Move the cursor down
+				cursorIndex++;
+				if (cursorIndex >= menuItems.length) cursorIndex = 0;
+			}
+			else if (gamepad.justPressed.LEFT_STICK_DIGITAL_UP || gamepad.justPressed.DPAD_UP)
+			{
+				// Move the cursor up
+				cursorIndex--;
+				if (cursorIndex < 0) cursorIndex = menuItems.length - 1;
+			}
+
+			// Check if the A button is pressed
+			if (gamepad.justReleased.A)
+			{
+				// Call the function corresponding to the selected menu item
+				switch (cursorIndex)
+				{
+					case 0:
+						checkWin();
+					case 1:
+						clickBack();
+				}
+			}
+			// Update the position of the cursor sprite
+			cursorSprite.y = menuItems[cursorIndex].y - 8;
+			cursorSprite.x = menuItems[cursorIndex].x;
+		}
     }
 
     public function checkWin(){

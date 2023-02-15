@@ -1,10 +1,9 @@
 package;
 
+import flixel.input.gamepad.FlxGamepad;
 import flixel.FlxSprite;
 import flixel.FlxSubState;
-import flixel.system.scaleModes.FixedScaleAdjustSizeScaleMode;
 import flixel.util.FlxColor;
-import openfl.text.TextField;
 import flixel.text.FlxText;
 import flixel.FlxState;
 import flixel.ui.FlxButton;
@@ -29,6 +28,12 @@ class CustomizeTableState extends FlxSubState
     var _btnBack:FlxButton;
     var titleText:FlxText;
     var background:FlxSprite;
+
+    // New variables for controller input
+    var cursorSprite:FlxSprite;
+    var menuItems:Array<FlxButton>;
+    var cursorIndex:Int = 0;
+    var gamepad:FlxGamepad;
 
     override public function create():Void
     {  
@@ -90,6 +95,17 @@ class CustomizeTableState extends FlxSubState
         _btnBack = new FlxButton(220, 400, "Back", clickBack);
         add(_btnBack);
 
+        // Initialize the cursor sprite and menu items array
+        cursorSprite = new FlxSprite();
+        cursorSprite.loadGraphic("assets/images/cursor.png");
+        cursorSprite.x = _btnUpRow.x - cursorSprite.width - 8;
+        cursorSprite.y = _btnDownRow.y - 8;
+        add(cursorSprite);
+
+        // Initialize the menu items array
+        menuItems = [_btnUpRow, _btnDownRow, _btnBack, _btnPlay];
+        cursorIndex = 0;
+
     }
 
     //play button is clicked
@@ -134,16 +150,57 @@ class CustomizeTableState extends FlxSubState
 
     }
 
-
-        //play button is clicked
-        function clickBack():Void
-            {
-                // switched state from current to MenuState
-                FlxG.switchState(new MenuState());
-            }
+    //play button is clicked
+    function clickBack():Void
+        {
+            // switched state from current to MenuState
+            FlxG.switchState(new MenuState());
+        }
 
     override public function update(elapsed:Float):Void
     {
             super.update(elapsed);
+
+            gamepad = FlxG.gamepads.lastActive;
+            if (gamepad != null) {
+
+                updateGamepadInput(gamepad);
+            }
+    }
+
+    function updateGamepadInput(gamepad:FlxGamepad) {
+        // Check if the joystick is moved up or down
+        if (gamepad.justPressed.LEFT_STICK_DIGITAL_DOWN || gamepad.justPressed.DPAD_DOWN)
+        {
+            // Move the cursor down
+            cursorIndex++;
+            if (cursorIndex >= menuItems.length) cursorIndex = 0;
+        }
+        else if (gamepad.justPressed.LEFT_STICK_DIGITAL_UP || gamepad.justPressed.DPAD_UP)
+        {
+            // Move the cursor up
+            cursorIndex--;
+            if (cursorIndex < 0) cursorIndex = menuItems.length - 1;
+        }
+
+        // Check if the A button is pressed
+        if (gamepad.justReleased.A)
+        {
+            // Call the function corresponding to the selected menu item
+            switch (cursorIndex)
+            {
+                case 0:
+                    increaseRowCol();
+                case 1:
+                    decreaseRowCol();
+                case 2:
+                    clickBack();
+                case 3:
+                    clickPlay();
+            }
+        }
+        // Update the position of the cursor sprite
+        cursorSprite.y = menuItems[cursorIndex].y - 8;
+        cursorSprite.x = menuItems[cursorIndex].x;
     }
 }
