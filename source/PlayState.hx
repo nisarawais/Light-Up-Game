@@ -79,13 +79,13 @@ class PlayState extends FlxState
 		
 		// setting text for win message
 		// win Text
-		winText = new FlxText(FlxG.width/2, FlxG.height - 450 , 0, "You Win!");
+		winText = new FlxText(FlxG.width/2, FlxG.height - 450 , 0, "You Win!", 15);
 		winText.color = 0x7002FD02;
 		add (winText);
 		winText.kill();
 
 		// Lose Text
-		noWinText = new FlxText(FlxG.width/2, FlxG.height - 450, 0, "You don't win yet!");
+		noWinText = new FlxText(FlxG.width/2, FlxG.height - 450, 0, "You don't win yet!", 15);
 		noWinText.color = 0x70FF0202;
 		add (noWinText);
 		noWinText.kill();
@@ -548,9 +548,10 @@ class PlayState extends FlxState
                 else if (grid[x][y] == 0){
                     // trace("checking empty cell at:");
                     if(!lightVisibleFromCell(x,y)) win = false;
-                // } else if (grid[x][y] == -1){
-                //     trace("Checking black square at:");
-                //     if(!validateBlackSquare(x,y)) win = false;
+
+					if (!correctLightNum()){
+						win=false;
+					}
                 }
             }
         }
@@ -564,6 +565,34 @@ class PlayState extends FlxState
 			noWinText.revive();
         }
     }
+	function correctLightNum():Bool {
+		var correct:Bool = true;
+		var count:Int = 0;
+		for (x in 0...columns) {
+			for (y in 0...rows) {
+				if (grid[x][y] == -1) {
+					if(x > 0 && grid[x-1][y] == 1) {
+						count++;
+					};
+					if(x < columns -1 && grid[x + 1][y] == 1) {
+						count++;
+					};
+					if(y > 0 && grid[x][y-1] == 1) {
+						count++;
+					};
+					if(y < rows - 1 && grid[x][y+1] == 1){
+						count++;
+					};
+				}
+				if (count != numOfLights[x][y]) {
+					correct = false;
+				}
+				count = 0;
+			}
+		}
+		return correct;
+	}
+
 
 	/**
 	*	Switches the state back to the menu state when the play button is clicked
