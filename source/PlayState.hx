@@ -560,11 +560,19 @@ class PlayState extends FlxState
         if(win){
 			noWinText.kill();
             winText.revive();
+			winState();
         } else {
 			winText.kill();
 			noWinText.revive();
         }
     }
+	function winState() {
+		{
+			final win = new WinState();
+			openSubState(win);
+		}
+	}
+
 	function correctLightNum():Bool {
 		var correct:Bool = true;
 		var count:Int = 0;
