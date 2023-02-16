@@ -24,7 +24,7 @@ class WinState extends FlxSubState{
             gameOverTxt.screenCenter(X);
             add(gameOverTxt);
     
-            final subGameOverTxt = new FlxText(0, boundingBox.y + 135, 0, "Press SPACE or Xbox X to restart", 24);
+            final subGameOverTxt = new FlxText(0, boundingBox.y + 135, 0, "Press SPACE or Xbox A to restart", 24);
             subGameOverTxt.screenCenter(X);
             add(subGameOverTxt);
 
