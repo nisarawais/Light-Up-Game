@@ -95,8 +95,8 @@ class PlayState extends FlxState
 		// Initialize the cursor sprite and menu items array
 		cursorSprite = new FlxSprite();
 		cursorSprite.loadGraphic("assets/images/cursor.png");
-		cursorSprite.x = tiles[0][0].x - cursorSprite.width - 8;
-		cursorSprite.y = tiles[0][0].y - 8;
+		cursorSprite.x = tiles[0][0].x + tiles[0][0].width - cursorSprite.width;
+		cursorSprite.y = tiles[0][0].y + tiles[0][0].height - 8;
 		add(cursorSprite);
 
 		// Initialize the menu items array
@@ -186,8 +186,8 @@ class PlayState extends FlxState
 					}
 				}
 				// Update the position of the cursor sprite
-				cursorSprite.y = tiles[cursorPositionX][cursorPositionY].y - 8;
-				cursorSprite.x = tiles[cursorPositionX][cursorPositionY].x;
+				cursorSprite.y = tiles[cursorPositionX][cursorPositionY].y + tiles[cursorPositionX][cursorPositionY].height/2 - 8;
+				cursorSprite.x = tiles[cursorPositionX][cursorPositionY].x + tiles[cursorPositionX][cursorPositionY].width/2;
 		}
 		if(!inGameBool){
 			// Check if the joystick is moved up or down
@@ -219,8 +219,8 @@ class PlayState extends FlxState
 				}
 			}
 			// Update the position of the cursor sprite
-			cursorSprite.y = menuItems[cursorIndex].y - 8;
-			cursorSprite.x = menuItems[cursorIndex].x;
+			cursorSprite.y = menuItems[cursorIndex].y + menuItems[cursorIndex].height/2 - 8;
+			cursorSprite.x = menuItems[cursorIndex].x + menuItems[cursorIndex].width/2 - cursorSprite.width;
 		}
     }
 

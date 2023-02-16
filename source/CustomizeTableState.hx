@@ -98,8 +98,8 @@ class CustomizeTableState extends FlxSubState
         // Initialize the cursor sprite and menu items array
         cursorSprite = new FlxSprite();
         cursorSprite.loadGraphic("assets/images/cursor.png");
-        cursorSprite.x = _btnUpRow.x - cursorSprite.width - 8;
-        cursorSprite.y = _btnDownRow.y - 8;
+        cursorSprite.x = _btnUpRow.x + _btnUpRow.width/2 - cursorSprite.width;
+        cursorSprite.y = _btnDownRow.y + _btnDownRow.height/2 - 8;
         add(cursorSprite);
 
         // Initialize the menu items array
@@ -200,7 +200,7 @@ class CustomizeTableState extends FlxSubState
             }
         }
         // Update the position of the cursor sprite
-        cursorSprite.y = menuItems[cursorIndex].y - 8;
-        cursorSprite.x = menuItems[cursorIndex].x;
+        cursorSprite.y = menuItems[cursorIndex].y + menuItems[cursorIndex].height/2 - 8;
+        cursorSprite.x = menuItems[cursorIndex].x + menuItems[cursorIndex].width/2 - cursorSprite.width;
     }
 }

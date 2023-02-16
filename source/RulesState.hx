@@ -50,8 +50,8 @@ class RulesState extends FlxState
         // Initialize the cursor sprite and menu items array
         cursorSprite = new FlxSprite();
         cursorSprite.loadGraphic("assets/images/cursor.png");
-        cursorSprite.x = _btnBack.x - cursorSprite.width - 8;
-        cursorSprite.y = _btnBack.y - 8;
+        cursorSprite.x = _btnBack.x + _btnBack.width/2 - cursorSprite.width;
+        cursorSprite.y = _btnBack.y +_btnBack.height/2 - 8;
         add(cursorSprite);
 
         // Initialize the menu items array
@@ -104,7 +104,7 @@ class RulesState extends FlxState
                     clickBack();
         }
         // Update the position of the cursor sprite
-        cursorSprite.y = menuItems[cursorIndex].y - 8;
+        cursorSprite.y = menuItems[cursorIndex].y + menuItems[cursorIndex].height/2 - 8;
     }
     }
 }
